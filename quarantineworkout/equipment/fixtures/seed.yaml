@@ -1,0 +1,16 @@
+- model: equipment.equipment
+  pk: 1
+  fields:
+    name: dumbbells
+- model: equipment.equipment
+  pk: 2
+  fields:
+    name: resistance bands
+- model: equipment.equipment
+  pk: 3
+  fields:
+    name: barbell
+- model: equipment.equipment
+  pk: 4
+  fields:
+    name: none

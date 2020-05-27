@@ -1,0 +1,25 @@
+- model: stars.star
+  pk: 1
+  fields:
+    number: 1
+    classification: poor
+- model: stars.star
+  pk: 2
+  fields:
+    number: 2
+    classification: not good
+- model: stars.star
+  pk: 3
+  fields:
+    number: 3
+    classification: good
+- model: stars.star
+  pk: 4
+  fields:
+    number: 4
+    classification: very good
+- model: stars.star
+  pk: 5
+  fields:
+    number: 5
+    classification: perfect

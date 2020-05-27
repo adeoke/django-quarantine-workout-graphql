@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+graphene = "==2.1.8"
+graphene-django = "==2.10.0"
+python-graphql-client = "==0.2.0"
+invoke = "==1.4.1"
+django-graphql-jwt = "==0.3.1"
+django-cors-headers = "==3.3.0"
+gql-query-builder = "==0.1.5"
+jsonpath-ng = "==1.5.1"
+Django = "==3.0.6"
+PyYAML = "==5.3.1"
+
+[requires]
+python_version = "3.6"

@@ -1,0 +1,12 @@
+- model: bodyparts.bodypart
+  pk: 1
+  fields:
+    name: upper body
+- model: bodyparts.bodypart
+  pk: 2
+  fields:
+    name: lower body
+- model: bodyparts.bodypart
+  pk: 3
+  fields:
+    name: cardio

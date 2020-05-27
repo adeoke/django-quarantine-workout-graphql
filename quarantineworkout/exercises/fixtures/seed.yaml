@@ -1,0 +1,12 @@
+- model: exercises.exercise
+  pk: 1
+  fields:
+    name: barbell shoulder press
+    url: "http://shoulder-press.com"
+    reps: 10
+    sets: 4
+    description: shoulder workout
+    body_part: 1
+    posted_by: 1
+    equipment: 3
+    level: 2

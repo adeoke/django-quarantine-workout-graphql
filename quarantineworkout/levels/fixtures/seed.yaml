@@ -1,0 +1,12 @@
+- model: levels.level
+  pk: 1
+  fields:
+    difficulty: beginner
+- model: levels.level
+  pk: 2
+  fields:
+    difficulty: intermediate
+- model: levels.level
+  pk: 3
+  fields:
+    difficulty: advanced

@@ -1,0 +1,12 @@
+- model: auth.user
+  pk: 1
+  fields:
+    email: testertesting90@example.com
+    password: pbkdf2_sha256$180000$3FY8VPm0LPtG$cUgJjnE2VwRFFz9cmvjbwfd0VMdfAHqirPXnskCQG04=
+    username: testertest90
+- model: auth.user
+  pk: 2
+  fields:
+    email: testertesting200@example.com
+    password: pbkdf2_sha256$180000$iOYtDtkgyIfm$jGwI9n1r4IbgMVqiGET+/NA6KPDf4trFkXPViukCf9E=
+    username: newtestertest
