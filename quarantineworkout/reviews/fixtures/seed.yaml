@@ -1,0 +1,28 @@
+- model: reviews.review
+  pk: 1
+  fields:
+    user: 1
+    exercise: 1
+    star: 5
+    created_at: "2020-02-01T13:20:30+03:00"
+- model: reviews.review
+  pk: 2
+  fields:
+    user: 1
+    exercise: 2
+    star: 4
+    created_at: "2020-02-01T13:20:30+03:00"
+- model: reviews.review
+  pk: 3
+  fields:
+    user: 2
+    exercise: 2
+    star: 5
+    created_at: "2020-02-01T13:20:30+03:00"
+- model: reviews.review
+  pk: 4
+  fields:
+    user: 2
+    exercise: 1
+    star: 3
+    created_at: "2020-02-01T13:20:30+03:00"

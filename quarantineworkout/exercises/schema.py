@@ -1,10 +1,8 @@
 import graphene
-from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from .models import Exercise
 from bodyparts.models import BodyPart
-from bodyparts.schema import BodyPartType
 from equipment.models import Equipment
 from levels.models import Level
 from users.schema import UserType

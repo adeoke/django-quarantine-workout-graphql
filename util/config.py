@@ -3,7 +3,7 @@ import yaml
 
 
 class Config:
-    yaml_file = os.path.join(os.path.dirname(__file__), 'config.yml')
+    yaml_file = os.path.join(os.path.dirname(__file__), '..', 'config.yml')
 
     @classmethod
     def current_config(cls):
@@ -17,4 +17,3 @@ class Config:
             yaml_obj = yaml.load(yaml_file, Loader=yaml.FullLoader)
 
         return yaml_obj.get(chosen_env)
-

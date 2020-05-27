@@ -1,16 +1,15 @@
 import unittest
+from util.config import Config
 from python_graphql_client import GraphqlClient
 from gql_query_builder import GqlQuery
 import json
 from jsonpath_ng import jsonpath, parse
 
-config = __import__('config')
-
 
 class TestLinkQueries(unittest.TestCase):
     def setUp(self):
-        self.host = config.Config.conf_for_current_env()['host']
-        self.path = config.Config.conf_for_current_env()['api_path']
+        self.host = Config.conf_for_current_env()['host']
+        self.path = Config.conf_for_current_env()['api_path']
         self.client = GraphqlClient(
             endpoint="{}{}".format(self.host, self.path))
 

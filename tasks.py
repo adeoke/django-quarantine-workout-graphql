@@ -56,10 +56,12 @@ def load_all_data(c):
         if 'seed.yaml' in filename:
             fixtures.append('{}/{}'.format(os.path.abspath(root), filename[0]))
 
-    # exercises fixture has to be loaded last at present
+    # exercises then reviews need to be the last tables seeded.
     for index in range(len(fixtures)):
-        if 'exercises' in fixtures[index]:
+        if 'reviews' in fixtures[index] and fixtures[index] != fixtures[-1]:
             fixtures[index], fixtures[-1] = fixtures[-1], fixtures[index]
+        if 'exercises' in fixtures[index] and fixtures[index] != fixtures[-2]:
+            fixtures[index], fixtures[-2] = fixtures[-2], fixtures[index]
 
     for fixture in fixtures:
         print('loading fixture'.format(fixture))
