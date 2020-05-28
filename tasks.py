@@ -25,7 +25,7 @@ def migrate(c):
 
 @task(post=[make_migrations, migrate])
 def make_migrations_and_migrate(_c):
-    print("Make migrations and migrate")
+    print("Make migrations for all apps, then migrate.")
 
 
 @task
@@ -50,7 +50,13 @@ def delete_all_migrations(c):
 
 
 @task
-def load_all_data(c):
+def delete_db_from_project_root(c, db_name='db.sqlite3'):
+    print('deleting db: {}'.format(db_name))
+    c.run('rm {}/{}'.format(django_project_root, db_name))
+
+
+@task
+def load_all_data(c, pty=False):
     fixtures = []
     for root, directory, filename in os.walk('quarantineworkout'):
         if 'seed.yaml' in filename:
@@ -64,9 +70,6 @@ def load_all_data(c):
             fixtures[index], fixtures[-2] = fixtures[-2], fixtures[index]
 
     for fixture in fixtures:
-        print('loading fixture'.format(fixture))
+        print('\nloading fixture'.format(fixture))
         c.run('python {}/manage.py loaddata {}'.format(django_project_root,
-                                                       fixture))
-
-# migrate to other db, db name as specified in settings.py database section
-# python manage.py migrate --database=local
+                                                       fixture), pty=pty)

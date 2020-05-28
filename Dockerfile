@@ -20,9 +20,12 @@ RUN apk add --virtual build-deps gcc musl-dev \
     && apk add jpeg-dev zlib-dev libjpeg \
     && pip install pipenv \
     && pipenv install -r requirements.txt --skip-lock --dev \
-    && apk del build-deps
+    && apk del build-deps \
+    && pipenv run python3 quarantineworkout/manage.py makemigrations \
+    && pipenv run python3 quarantineworkout/manage.py migrate
 
-CMD ["pipenv", "run", "python3", "quarantineworkout/manage.py", "makemigrations"]
-CMD ["pipenv", "run", "python3", "quarantineworkout/manage.py", "migrate"]
-CMD ["pipenv", "run", "python3", "quarantineworkout/manage.py", "runserver", "0.0.0.0:8000"]
+# execute immediately
+RUN pipenv run inv load-all-data
 
+# when the container starts then this should also start.
+CMD pipenv run quarantineworkout/manage.py runserver 0.0.0.0:8000

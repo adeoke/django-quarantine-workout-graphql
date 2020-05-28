@@ -5,12 +5,12 @@
     url: "https://www.youtube.com/watch?v=2yjwXTZQDDI"
     reps: 10
     sets: 4
-    description: shoulder workout
+    description: shoulder exercise
     body_part: 1
     posted_by: 1
     equipment: 3
     level: 2
-    created_at: "2020-01-01T13:20:30+03:00"
+    created_at: "2020-01-01T13:20:20+03:00"
 - model: exercises.exercise
   pk: 2
   fields:
@@ -18,9 +18,48 @@
     url: "https://www.youtube.com/watch?v=Yrd6ZLwSbos"
     reps: 20
     sets: 5
-    description: chest workout
+    description: chest exercise
     body_part: 1
     posted_by: 2
     equipment: 2
     level: 2
     created_at: "2020-01-01T13:20:30+03:00"
+- model: exercises.exercise
+  pk: 3
+  fields:
+    name: burpees
+    url: "https://www.youtube.com/watch?v=tJrdJBWBu08"
+    reps: 30
+    sets: 5
+    description: whole body exercise
+    body_part: 3
+    posted_by: 2
+    equipment: 4
+    level: 2
+    created_at: "2020-01-01T13:20:40+03:00"
+- model: exercises.exercise
+  pk: 4
+  fields:
+    name: bicep curls
+    url: "https://www.youtube.com/watch?v=in7PaeYlhrM"
+    reps: 10
+    sets: 4
+    description: bicep exercise
+    body_part: 1
+    posted_by: 1
+    equipment: 1
+    level: 2
+    created_at: "2020-01-01T13:20:50+03:00"
+- model: exercises.exercise
+  pk: 5
+  fields:
+    name: resistance band deadlift exercise
+    url: "https://www.youtube.com/watch?v=rjC1VBuqs8s"
+    reps: 10
+    sets: 4
+    description: compound leg exercise
+    body_part: 2
+    posted_by: 2
+    equipment: 2
+    level: 2
+    created_at: "2020-01-01T13:20:55+03:00"
