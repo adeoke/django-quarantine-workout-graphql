@@ -23,13 +23,13 @@ RUN apk add --virtual build-deps gcc musl-dev \
     && pipenv install -r requirements.txt --deploy --ignore-pipfile \
     && apk del build-deps
 
-# set migrations based on models for app
+# set migrations based on models for app.
 RUN pipenv run python3 quarantineworkout/manage.py makemigrations
 
-# create the db and tables based on models for the app
+# create the db and tables based on models for the app (migrations).
 RUN pipenv run python3 quarantineworkout/manage.py migrate
 
-# Load data into sqlite3 db in certain order
+# Load data into sqlite3 db in certain order.
 RUN pipenv run python3 quarantineworkout/manage.py loaddata 'quarantineworkout/stars/fixtures/seed.yaml'
 RUN pipenv run python3 quarantineworkout/manage.py loaddata 'quarantineworkout/bodyparts/fixtures/seed.yaml'
 RUN pipenv run python3 quarantineworkout/manage.py loaddata 'quarantineworkout/users/fixtures/seed.yaml'

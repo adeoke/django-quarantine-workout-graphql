@@ -14,13 +14,13 @@ class ExerciseType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    exercises = graphene.List(ExerciseType, search=graphene.Int())
+    exercises = graphene.List(ExerciseType, search_id=graphene.Int())
 
-    def resolve_exercises(self, info, search=None):
+    def resolve_exercises(self, info, search_id=None):
         all_exercises = Exercise.objects.all()
 
-        if search:
-            all_exercises = all_exercises.filter(id=search)
+        if search_id:
+            all_exercises = all_exercises.filter(id=search_id)
 
         return all_exercises
 
