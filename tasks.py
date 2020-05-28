@@ -56,7 +56,7 @@ def delete_db_from_project_root(c, db_name='db.sqlite3'):
 
 
 @task
-def load_all_data(c, pty=False):
+def load_all_data(c):
     fixtures = []
     for root, directory, filename in os.walk('quarantineworkout'):
         if 'seed.yaml' in filename:
@@ -72,4 +72,4 @@ def load_all_data(c, pty=False):
     for fixture in fixtures:
         print('\nloading fixture'.format(fixture))
         c.run('python {}/manage.py loaddata {}'.format(django_project_root,
-                                                       fixture), pty=pty)
+                                                       fixture))
