@@ -1,7 +1,8 @@
 FROM python:3.6-alpine
 MAINTAINER A Tester
 
-EXPOSE 8000 8000
+# make port 8000 available from this container.
+EXPOSE 8000
 
 RUN mkdir /djangoapi
 
@@ -9,15 +10,15 @@ RUN mkdir /djangoapi
 WORKDIR /djangoapi
 
 #copy all content from host directory to image directory.
-ADD . /djangoapi/
+COPY . /djangoapi/
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
 
 # execute immediately
-RUN apk update
-RUN apk add openssh-server
-RUN apk add --virtual build-deps gcc musl-dev \
+RUN apk update \
+    && apk add openssh-server \
+    && apk add --virtual build-deps gcc musl-dev \
     && apk add jpeg-dev zlib-dev libjpeg \
     && pip install pipenv \
     && pipenv install -r requirements.txt --deploy --ignore-pipfile \
@@ -39,4 +40,4 @@ RUN pipenv run python3 quarantineworkout/manage.py loaddata 'quarantineworkout/e
 RUN pipenv run python3 quarantineworkout/manage.py loaddata 'quarantineworkout/reviews/fixtures/seed.yaml'
 
 # when the container starts then this should also start.
-CMD pipenv run quarantineworkout/manage.py runserver 0.0.0.0:8000
+#CMD pipenv run quarantineworkout/manage.py runserver 0.0.0.0:8000
