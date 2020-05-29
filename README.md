@@ -106,3 +106,10 @@ https://blog.papertrailapp.com/common-api-vulnerabilities-and-how-to-secure-them
 
 TODO: Seed user, invoke task to completely wipe db, another task to setup db and 
 load data for the various app models, ready for e2e testing again.
+
+query building help:
+# client info
+# https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
+
+# builder
+# https://gist.github.com/gbaman/b3137e18c739e0cf98539bf4ec4366ad
