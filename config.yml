@@ -1,6 +1,6 @@
 local:
   host: 'http://localhost:8000'
   api_path: '/graphql/'
-prod:
-  host: 'tbc'
-  api_path: '/graphql/'
+  user:
+    username: testertest90
+    password: password123

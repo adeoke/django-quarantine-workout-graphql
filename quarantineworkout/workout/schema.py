@@ -6,12 +6,12 @@ from exercises.models import Exercise
 class Query(graphene.ObjectType):
     workout = graphene.List(ExerciseType,
                             body_part=graphene.String(),
-                            name=graphene.String(),
+                            exercise_name=graphene.String(),
                             equipment=graphene.String(),
                             level=graphene.String())
 
     def resolve_workout(self, info, **kwargs):
-        all_exercises = Exercise.objects
+        all_exercises = Exercise.objects.all()
 
         if kwargs.get('body_part'):
             all_exercises = all_exercises.select_related('body_part').filter(
@@ -21,9 +21,9 @@ class Query(graphene.ObjectType):
             all_exercises = all_exercises.select_related('level').filter(
                 level__difficulty=kwargs.get('level').lower())
 
-        if kwargs.get('name'):
+        if kwargs.get('exercise_name'):
             all_exercises = all_exercises.filter(
-                name__icontains=kwargs.get('name').lower())
+                name__icontains=kwargs.get('exercise_name').lower())
 
         if kwargs.get('equipment'):
             all_exercises = all_exercises.select_related('equipment').filter(
