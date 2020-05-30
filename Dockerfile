@@ -20,7 +20,9 @@ RUN apk update \
     && apk add openssh-server \
     && apk add --virtual build-deps gcc musl-dev \
     && apk add jpeg-dev zlib-dev libjpeg \
-    && pip install pipenv \
+    && pip3 install pip --upgrade \
+#    && pip install pip3 \
+    && pip3 install pipenv \
     && pipenv install -r requirements.txt --deploy --ignore-pipfile \
     && apk del build-deps
 
