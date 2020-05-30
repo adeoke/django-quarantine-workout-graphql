@@ -7,7 +7,7 @@ django_project_root = os.path.join(current_dir, "quarantineworkout")
 
 @task(optional=['port'])
 def run_server(c, port=None):
-    run_server_cmd = 'python manage.py runserver'
+    run_server_cmd = 'python quarantineworkout/manage.py runserver'
     if port:
         run_server_cmd = '{} {}'.format(run_server_cmd, port)
     c.run(run_server_cmd)
@@ -37,7 +37,7 @@ def run_all_tests(c):
 def load_app_data(c, app=None):
     if app:
         path = '{}/{}/fixtures/seed.yaml'.format(django_project_root, app)
-        c.run('python manage.py loaddata {}'.format(path))
+        c.run('python quarantineworkout/manage.py loaddata {}'.format(path))
     else:
         print("no app chosen to loaddata from")
 
@@ -70,6 +70,6 @@ def load_all_data(c):
             fixtures[index], fixtures[-2] = fixtures[-2], fixtures[index]
 
     for fixture in fixtures:
-        print('\nloading fixture'.format(fixture))
+        print('\nloading fixture {}'.format(fixture))
         c.run('python {}/manage.py loaddata {}'.format(django_project_root,
                                                        fixture))
