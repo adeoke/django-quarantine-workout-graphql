@@ -4,7 +4,7 @@ An approach to testing GraphQL API's in Python 3.6, utilising Pipenv.
 
 The following libraries are used to both develop and test the application:
 
-```
+```text
 graphene #=> The actual library used to build GraphQL API's, there are others, but I like this one.
 
 graphene-django #=> Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
@@ -22,19 +22,142 @@ gql-query-builder #=> GraphQL query builder.
 PyYAML #=> To parse yaml files.
 
 jsonpath-ng #=> To parse json strings.
+
+django-cors-headers #=> allowing resources to be accessed on other domains.
+
+Fake #=> For generating random test data.
+
+snapshottest #=> to run tests against the snapshot responses.
 ```
 
-# Installation:
+# Setup / Installation:
 
-It is assumed that you have Pipenv installed. If not then see the installation 
-instructions here:
+## Setup with Docker
 
+You will need to have both docker and docker-compose installed.
+Provided you do have this installed then navigate to the project root, launch the terminal and input:
+
+```text
+docker-compose up
 ```
+
+This will setup and install all the dependencies for the application and start the server on `localhost:8000`.
+
+## Install locally
+
+You will need to create a virtual environment. In this project I have used `Pipenv`.
+To install Pipenv see the instructions here:
+
+```http request
+https://pypi.org/project/pipenv/
+```
+
+Once installed, launch the terminal (if its not already open), navigate to the project root 
+and input `pipenv shell` to change into the virtual environment.
+
+To verify that you are in the pipenv shell environment you should see something similar to the following:
+
+```shell script
+(djangoapi) user-machine:djangoapi myuser$ 
+``` 
+
+In the project root install the dependencies in your environment with the following pipenv command:
+
+```shell script
+pipenv install -r requirements.txt
+```
+
+The installation will install a couple of command line tools. 
+You can verify that they are installed by running the following commands on command line:
+
+```shell script
+django-admin --version
+#=> 3.0.6
+
+invoke --version
+#=> 1.4.1
+```
+
+*NB: It is also possible to use `invoke` with the shortened word `inv`, so from here on I will refer to the shortened name of the task manager.*
+
+# Task manager
+I have used `invoke` for tasks when running locally, but can also be used on a container itself.
+
+If you are unfamiliar with invoke see basic usage here:
+
+```http request
+http://docs.pyinvoke.org/en/stable/getting-started.html
+```
+
+Purely for my convenience I have added a couple of tasks to speed up my development and testing.
+You can get a list of all the tasks with the command:
+
+```shell script
+inv -l
+
+#=> produces output...
+
+delete-all-migrations         Delete all migration files for all Django apps.
+delete-db-from-project-root   Deletes the db with name db from the project root. Default db 'db.sqlite3'.
+load-all-data                 Loads seed data for all fixtures directory for all applications.
+load-app-data                 Load app data for app supplied by app arg.
+make-migrations               Make migrations based on app models for all Django apps in project.
+make-migrations-and-migrate   Perform both making migrations for all apps and then migrating them, again for all apps.
+migrate                       Migrate the migration files for all the apps in the Django project.
+run-all-tests                 Run all tests within the djangoapi/tests directory using unittest test runner.
+run-server                    Start the django server on default port 8000, unless another port specified.
+```
+
+#Starting the server locally.
+
+The application should now be all set up and ready to use. Finally, to test your configuration start the Django server
+(the default port is 8000), with by running:
+
+```shell script
+inv run-server
+```
+
+This will start the server on `localhost:8000` (if you wish to change the default port run the task instead with 
+command `inv run-server --port=MY_PORT_HERE`).
+
+Replacing the port with the port of your choice. Note that regardless of the port that you choose, the process will
+now run in the terminal window until you end the server by issuing a `control AND c` to cancel the process. So it is *advisable*
+to start a new terminal on the project root and ensure that you change into the same environment with the command `pipenv shell` again.
+
+In your browser you can now visit the url `http://localhost:8000/graphql/` to view the GraphiQL editor:
+
+![](/images/graphiql_localhost.png)
+
+#Running the tests
+
+A good place to start to make sure that the application is up and running is to run the end to end and snapshot tests.
+Again, go to the project root in the terminal change to the pipenv environment (`pipenv shell`) and input: 
+
+```shell script
+inv run-all-tests
+```
+
+NB: If it wasn't already obvious, the tests will NOT run within the browser session. Instead the tests use a client to make the API requests. 
+
+# Performing a query
+
+If you are familiar with graphql then you ignore this section.
+IF you are new to graphql it is advisable to do some research into how to perform queries.
+Failing that for whatever reason I shall provide a couple of quick examples of how to interact with the API using graphql 
+queries.
+
+### EDIT ALL BELOW.
+
+
+It is assumed that you have Pipenv installed. If not then see the installation instructions here:
+
+```http request
 https://pypi.org/project/pipenv/
 ```
 
 Once Pipenv is installed, input the following on the command line from the project root:
-```
+
+```shell script
 pipenv install -r requirements.txt
 ```
 
@@ -45,7 +168,7 @@ so feel free to give it a go if you want.
 NB: before starting the application, I have included some data to seed the database to ensure that 
 when testing is performed there is data to work with. You can seed the data with the invoke task:
 
-```python
+```shell script
 invoke seed-all-data
 ```
 
@@ -54,7 +177,7 @@ via mutations to enable any querying of the service.
 
 You are now ready to start the application. Start the service by launching the django server with invoke command:
 
-```
+```shell script
 invoke run-server
 ```
 
