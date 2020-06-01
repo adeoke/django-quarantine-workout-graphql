@@ -31,18 +31,6 @@ Faker # For generating random test data.
 snapshottest # To run tests against the snapshot (recorded) responses.
 ```
 
-# High level acceptance criteria
-
-In order to flesh out the functionality of the api I have followed these criteria (you can assume your 
-own implied criteria from the ones listed here).
-
-1. Any user is able to retrieve all workouts.
-2. A workout is a collection of exercises that match a given criteria (by filtering).
-3. If no filter is specified when making a request for a workout then all exercises are returned.
-4. Filtering on a workout should only return exercises that match the filter criteria.
-5. TODO complete 
-
-
 **Remove/UPDATE**
 2) Only a logged in user can create an exercise.
 3) Only a logged in user can give a workout a review (where ONE is poor upto a review of FIVE, which represents a perfect exercise, only five choices,
@@ -62,7 +50,7 @@ You will need to have both docker and docker-compose installed.
 Provided you do, then navigate to the project root, launch the terminal and input:
 
 ```text
-docker-compose up
+$ docker-compose up
 ```
 
 This will setup and install all the dependencies for the application and start the server on `localhost:8000`.
@@ -83,23 +71,23 @@ and input `pipenv shell` to change into the virtual environment.
 To verify that you are in the pipenv shell environment you should see something similar to the following:
 
 ```shell script
-(djangoapi) user-machine:djangoapi myuser$ 
+$ (djangoapi) user-machine:djangoapi myuser$ 
 ``` 
 
 In the project root install the dependencies in your environment with the following pipenv command:
 
 ```shell script
-pipenv install -r requirements.txt
+$ pipenv install -r requirements.txt
 ```
 
 The installation will install a couple of command line tools. 
 You can verify that they are installed by running the following commands on command line:
 
 ```shell script
-django-admin --version
+$ django-admin --version
 > 3.0.6
 
-invoke --version
+$ invoke --version
 > 1.4.1
 ```
 
@@ -118,7 +106,7 @@ Purely for my convenience I have added a couple of tasks to speed up my developm
 You can get a list of all the tasks with the command:
 
 ```shell script
-inv -l
+$ inv -l
 
 > # produces output...
 
@@ -139,7 +127,7 @@ The application should now be all set up and ready to use. Finally, to test your
 (the default port is 8000), with by running:
 
 ```shell script
-inv run-server
+$ inv run-server
 ```
 
 This will start the server on `localhost:8000` (if you wish to change the default port run the task instead with 
@@ -153,16 +141,57 @@ In your browser you can now visit the url `http://localhost:8000/graphql/` to vi
 
 ![](/images/graphiql_localhost.png)
 
-# Running the tests
+# Running the tests locally
 
 A good place to start to make sure that the application is up and running is to run the end to end and snapshot tests.
 Again, go to the project root in the terminal change to the pipenv environment (`pipenv shell`) and input: 
 
 ```shell script
-inv run-all-tests
+$ inv run-all-tests
 ```
 
-NB: If it wasn't already obvious, the tests will NOT run within the browser session. Instead the tests use a client to make the API requests. 
+*NB: If it wasn't already obvious, the tests will **NOT** run within the browser session. Instead the tests use a client to make the API requests.* 
+
+# Running the tests on the container
+
+You can run the tests on the container with the following command (**ensure that the container is already running**):
+
+```shell script
+$ docker ps -a # To get the list of running containers. Get the container name or id that is returned in the output from the command.
+
+# example output
+
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+**377e4cafe15c**        djangoapi_app       "sh -c 'pipenv run p…"   22 seconds ago      Up 22 seconds       0.0.0.0:8000->8000/tcp   **djangoapi_app_1**
+
+
+$ docker exec -it <CONTAINER_NAME_OR_ID> /bin/sh
+
+```
+
+Once in the connected then change into the pipenv environment:
+
+```shell script
+$ pipenv shell
+
+# you should see output similar to the following:
+
+Launching subshell in virtual environment…
+/djangoapi #  . /root/.local/share/virtualenvs/djangoapi-RQslU66b/bin/activate
+
+# Run all tests using unittest directly and **NOT** invoke tasks (bash is **NOT** installed on alpine).
+
+$ python3 -m unittest tests/**/*.py
+
+# if successful then the output should be similar to the following:
+
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.710s
+
+OK
+
+```
 
 # Example of how to perform a query
 
@@ -176,6 +205,18 @@ TODO
 # Example of how to perform a mutation
 
 TODO
+
+# High level acceptance criteria
+
+In order to flesh out the functionality of the api I have followed these criteria (you can assume your 
+own implied criteria from the ones listed here).
+
+1. Any user is able to retrieve all workouts.
+2. A workout is a collection of exercises that match a given criteria (by filtering).
+3. If no filter is specified when making a request for a workout then all exercises are returned.
+4. Filtering on a workout should only return exercises that match the filter criteria.
+5. TODO complete 
+
 
 
 # Anatomy of an end to end test
@@ -219,65 +260,8 @@ See here for more on some of the suggested improvements:
 https://blog.papertrailapp.com/common-api-vulnerabilities-and-how-to-secure-them/
 ```
 
-
-
-
-
-
-### EDIT ALL BELOW.
-
-
-It is assumed that you have Pipenv installed. If not then see the installation instructions here:
-
-```http request
-https://pypi.org/project/pipenv/
-```
-
-Once Pipenv is installed, input the following on the command line from the project root:
-
-```shell script
-pipenv install -r requirements.txt
-```
-
-If you choose to not install Pipenv, then technically that should also be okay.
-You should be able to install the dependencies using Pip for example, but I have not tried
-so feel free to give it a go if you want.
-
-NB: before starting the application, I have included some data to seed the database to ensure that 
-when testing is performed there is data to work with. You can seed the data with the invoke task:
-
-```shell script
-invoke seed-all-data
-```
-
-Note that omitting this step will still start the application, but you will need to create your own initial data
-via mutations to enable any querying of the service.
-
-You are now ready to start the application. Start the service by launching the django server with invoke command:
-
-```shell script
-invoke run-server
-```
-
-Which will start the django app on localhost port 8000. Note also that the terminal instance that this service 
-is running on is no longer usable and logging will only be displayed from there onwards. You will need to open a new terminal window
-to perform any other action.
-
-NB: It should also be noted that you can change he port that the server starts on if you do not want to start on port 8000.
-For example the following command will start the django server on port 8900:
-
-```python
-invoke run-server --port=8900
-```
-
-
-In the new terminnal window you can now run all the tests against the live application with command:
-
-```python
-invoke run-all-tests
-```
-
-Which will run the tests against the running service and not the tests against the mocks.
+To exit from the virtual environment type `exit`. Which takes you back to the terminal, still on the container. 
+Type `exit` to return to the terminal on your host machine. 
 
 ## License
 
