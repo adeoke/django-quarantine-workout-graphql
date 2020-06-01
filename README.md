@@ -5,30 +5,31 @@ An approach to testing GraphQL API's in Python 3.6, utilising Pipenv.
 
 The following libraries are used to both develop and test the application:
 
+```shell script
+graphene # The actual library used to build GraphQL API's, there are others, but I like this one.
 
-- graphene # The actual library used to build GraphQL API's, there are others, but I like this one.
+graphene-django # Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
 
-- graphene-django # Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
+python-graphql-client # GraphQL client for programmatic requests.
 
-- python-graphql-client # GraphQL client for programmatic requests.
+invoke # Task runner.
 
-- invoke # Task runner.
+django # Web framework support.
 
-- django # Web framework support.
+django-graphql-jwt # For JWT tokens.
 
-- django-graphql-jwt # For JWT tokens.
+gql-query-builder # GraphQL query builder.
 
-- gql-query-builder # GraphQL query builder.
+PyYAML # To parse yaml files.
 
-- PyYAML # To parse yaml files.
+jsonpath-ng # To parse json strings.
 
-- jsonpath-ng # To parse json strings.
+django-cors-headers # Allowing resources to be accessed on other domains.
 
-- django-cors-headers # Allowing resources to be accessed on other domains.
+Faker # For generating random test data.
 
-- Faker # For generating random test data.
-
-- snapshottest # To run tests against the snapshot responses.
+snapshottest # To run tests against the snapshot responses.
+```
 
 # High level acceptance criteria
 
@@ -166,13 +167,13 @@ NB: If it wasn't already obvious, the tests will NOT run within the browser sess
 # Example of how to perform a query
 
 If you are familiar with graphql then you ignore this section.
-IF you are new to graphql it is advisable to do some research into how to perform queries.
+If you are new to graphql it is advisable to do some research into how to perform queries.
 Failing that for whatever reason I shall provide a couple of quick examples of how to interact with the API using graphql 
 queries.
 
 TODO
 
-# Eample of how to perform a mutation
+# Example of how to perform a mutation
 
 TODO
 
@@ -182,11 +183,18 @@ TODO
 TODO
 
 > query building help:
+
 > client info
-> https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
+
+```http request
+https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
+```
 
 > builder
-> https://gist.github.com/gbaman/b3137e18c739e0cf98539bf4ec4366ad
+
+```http request
+https://gist.github.com/gbaman/b3137e18c739e0cf98539bf4ec4366ad
+```
 
 
 # Anatomy of a snapshot test
@@ -205,8 +213,11 @@ currently authenticated user.
 4) Use logging.
 5) IP whitelisting.
 
-see here for more on some of the suggested improvements:
+See here for more on some of the suggested improvements:
+
+```http request
 https://blog.papertrailapp.com/common-api-vulnerabilities-and-how-to-secure-them/
+```
 
 
 
@@ -267,18 +278,4 @@ invoke run-all-tests
 ```
 
 Which will run the tests against the running service and not the tests against the mocks.
-
-
-
-# TODO provide tests against mocks.
-
-# some points to consider:
-ip whitelisting
-rate limiting
-access logs
-
-
-
-TODO: Seed user, invoke task to completely wipe db, another task to setup db and 
-load data for the various app models, ready for e2e testing again.
 
