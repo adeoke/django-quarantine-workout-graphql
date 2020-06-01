@@ -56,7 +56,7 @@ def make_migrations_and_migrate(_c):
 @task
 def run_all_tests(c):
     """
-    Run all tests within the djangoapi/tests directory.
+    Run all tests within the djangoapi/tests directory using unittest test runner.
 
     :param c: Context object
     :return: None
