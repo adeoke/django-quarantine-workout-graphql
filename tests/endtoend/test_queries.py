@@ -1,5 +1,5 @@
 import unittest
-from util.config import Config
+from util.appconfig import AppConfig
 from python_graphql_client import GraphqlClient
 from gql_query_builder import GqlQuery
 from jsonpath_ng import parse
@@ -7,8 +7,8 @@ from jsonpath_ng import parse
 
 class TestAppQueries(unittest.TestCase):
     def setUp(self):
-        self.host = Config.conf_for_current_env()['host']
-        self.path = Config.conf_for_current_env()['api_path']
+        self.host = AppConfig.conf_for_current_env()['host']
+        self.path = AppConfig.conf_for_current_env()['api_path']
         self.client = GraphqlClient(
             endpoint="{}{}".format(self.host, self.path))
 

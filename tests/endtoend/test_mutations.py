@@ -1,5 +1,5 @@
 import unittest
-from util.config import Config
+from util.appconfig import AppConfig
 from python_graphql_client import GraphqlClient
 from gql_query_builder import GqlQuery
 from faker import Faker
@@ -11,15 +11,15 @@ class TestAppMutations(unittest.TestCase):
     def setUp(self):
         self.fake = Faker()
         self.fake.add_provider(profile)
-        self.host = Config.conf_for_current_env()['host']
-        self.path = Config.conf_for_current_env()['api_path']
+        self.host = AppConfig.conf_for_current_env()['host']
+        self.path = AppConfig.conf_for_current_env()['api_path']
         self.client = GraphqlClient(
             endpoint="{}{}".format(self.host, self.path))
 
     def test_using_variables_for_existing_user_obtains_token_auth_in_response_data(
             self):
-        username = Config.conf_for_current_env()['user']['username']
-        password = Config.conf_for_current_env()['user']['password']
+        username = AppConfig.conf_for_current_env()['user']['username']
+        password = AppConfig.conf_for_current_env()['user']['password']
 
         query = GqlQuery().fields(
             ['token', 'payload', 'refreshExpiresIn']).query("tokenAuth",

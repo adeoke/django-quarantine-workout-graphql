@@ -3,7 +3,7 @@ import yaml
 from os import environ
 
 
-class Config:
+class AppConfig:
     yaml_file = os.path.join(os.path.dirname(__file__), '..', 'config.yml')
 
     @classmethod
@@ -14,7 +14,7 @@ class Config:
     def conf_for_current_env(cls):
         chosen_env = cls.current_config()
 
-        with open(Config.yaml_file, 'r') as yaml_file:
+        with open(AppConfig.yaml_file, 'r') as yaml_file:
             yaml_obj = yaml.load(yaml_file, Loader=yaml.FullLoader)
 
         return yaml_obj.get(chosen_env)
