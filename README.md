@@ -1,5 +1,6 @@
 # Quarantine Workout
 
+
 An approach to testing GraphQL API's in Python 3.6, utilising Pipenv.
 
 The following libraries are used to both develop and test the application:
@@ -30,20 +31,43 @@ Fake #=> For generating random test data.
 snapshottest #=> to run tests against the snapshot responses.
 ```
 
-# Setup / Installation:
+# High level acceptance criteria
+
+In order to flesh out the functionality of the api I have followed these criteria (you can assume your 
+own implied criteria from the ones listed here).
+
+1) Any user is able to retrieve all workouts.
+2) A workout is a collection of exercises that match a given criteria (by filtering).
+3) If no filter is specified when making a request for a workout then all exercises are returned.
+4) Filtering on a workout should only return exercises that match the filter criteria.
+5) 
+
+
+2) Only a logged in user can create an exercise.
+3) Only a logged in user can give a workout a review (where ONE is poor upto a review of FIVE, which represents a perfect exercise, only five choices,
+ONE to FIVE, inclusive are permitted).
+4) Any user can obtain all the reviews for a workout.
+5) Only return the email address and username when querying all reviews, if you are the user who made that review.
+All other reviews posted from other users should not include the username or email address.
+6) Only a user with admin access can get all user details from a query to users.
+7) Only a users username is returned when an authenticated user makes a request to query Users.
+
+
+# Setup Instructions
 
 ## Setup with Docker
 
 You will need to have both docker and docker-compose installed.
-Provided you do have this installed then navigate to the project root, launch the terminal and input:
+Provided you do, then navigate to the project root, launch the terminal and input:
 
 ```text
 docker-compose up
 ```
 
 This will setup and install all the dependencies for the application and start the server on `localhost:8000`.
+You can view GraphiQL now in the browser by going to `http://localhost:8000/graphql/`
 
-## Install locally
+## Setup locally
 
 You will need to create a virtual environment. In this project I have used `Pipenv`.
 To install Pipenv see the instructions here:
@@ -72,13 +96,13 @@ You can verify that they are installed by running the following commands on comm
 
 ```shell script
 django-admin --version
-#=> 3.0.6
+> 3.0.6
 
 invoke --version
-#=> 1.4.1
+> 1.4.1
 ```
 
-*NB: It is also possible to use `invoke` with the shortened word `inv`, so from here on I will refer to the shortened name of the task manager.*
+*NB: It is also possible to use `invoke` with the shortened word `inv`, so from here on I will refer to the short form name for the task manager.*
 
 # Task manager
 I have used `invoke` for tasks when running locally, but can also be used on a container itself.
@@ -95,7 +119,7 @@ You can get a list of all the tasks with the command:
 ```shell script
 inv -l
 
-#=> produces output...
+> # produces output...
 
 delete-all-migrations         Delete all migration files for all Django apps.
 delete-db-from-project-root   Deletes the db with name db from the project root. Default db 'db.sqlite3'.
@@ -108,7 +132,7 @@ run-all-tests                 Run all tests within the djangoapi/tests directory
 run-server                    Start the django server on default port 8000, unless another port specified.
 ```
 
-# Starting the server locally.
+# Starting the server locally
 
 The application should now be all set up and ready to use. Finally, to test your configuration start the Django server
 (the default port is 8000), with by running:
@@ -139,12 +163,55 @@ inv run-all-tests
 
 NB: If it wasn't already obvious, the tests will NOT run within the browser session. Instead the tests use a client to make the API requests. 
 
-# Performing a query
+# Example of how to perform a query
 
 If you are familiar with graphql then you ignore this section.
 IF you are new to graphql it is advisable to do some research into how to perform queries.
 Failing that for whatever reason I shall provide a couple of quick examples of how to interact with the API using graphql 
 queries.
+
+TODO
+
+# Eample of how to perform a mutation
+
+TODO
+
+
+# Anatomy of an end to end test
+
+TODO
+
+> query building help:
+> client info
+> https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
+
+> builder
+> https://gist.github.com/gbaman/b3137e18c739e0cf98539bf4ec4366ad
+
+
+# Anatomy of a snapshot test
+
+TODO
+
+
+# Suggested Improvements
+
+1) Only return all user information for the currently authenticated user.
+At present the currently logged in user, or unauthenticated user will retrieve all 
+user data in the response data. An improvement would be hide the sensitive data for all users other than the 
+currently authenticated user.
+2) Add rate limiting.
+3) Use relay for pagination.
+4) Use logging.
+5) IP whitelisting.
+
+see here for more on some of the suggested improvements:
+https://blog.papertrailapp.com/common-api-vulnerabilities-and-how-to-secure-them/
+
+
+
+
+
 
 ### EDIT ALL BELOW.
 
@@ -199,22 +266,8 @@ In the new terminnal window you can now run all the tests against the live appli
 invoke run-all-tests
 ```
 
-Which will run the tests against the live service and not the tests against the mocks.
+Which will run the tests against the running service and not the tests against the mocks.
 
-# High level acceptance criteria
-
-In order to flesh out the functionality of the api Ihave followed these criteria (you can assume your 
-own implied criteria from the ones listed here).
-
-1) Any user is able to retrieve all workouts.
-2) Only a logged in user can create a workout.
-3) Only a logged in user can give a workout a review (where ONE is poor upto a review of FIVE, which represents a perfect exercise, only five choices,
-ONE to FIVE, inclusive are permitted).
-4) Any user can obtain all the reviews for a workout.
-5) Only return the email address and username when querying all reviews, if you are the user who made that review.
-All other reviews posted from other users should not include the username or email address.
-6) Only a user with admin access can get all user details from a query to users.
-7) Only a users username is returned when an authenticated user makes a request to query Users.
 
 
 # TODO provide tests against mocks.
@@ -224,15 +277,8 @@ ip whitelisting
 rate limiting
 access logs
 
-see here for more on the topic:
-https://blog.papertrailapp.com/common-api-vulnerabilities-and-how-to-secure-them/
+
 
 TODO: Seed user, invoke task to completely wipe db, another task to setup db and 
 load data for the various app models, ready for e2e testing again.
 
-query building help:
-# client info
-# https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
-
-# builder
-# https://gist.github.com/gbaman/b3137e18c739e0cf98539bf4ec4366ad
