@@ -28,7 +28,7 @@ django-cors-headers # Allowing resources to be accessed on other domains.
 
 Faker # For generating random test data.
 
-snapshottest # To run tests against the snapshot responses.
+snapshottest # To run tests against the snapshot (recorded) responses.
 ```
 
 # High level acceptance criteria
@@ -279,3 +279,6 @@ invoke run-all-tests
 
 Which will run the tests against the running service and not the tests against the mocks.
 
+## License
+
+[MIT License](/LICENSE)
