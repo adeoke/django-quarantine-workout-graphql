@@ -6,29 +6,29 @@ An approach to testing GraphQL API's in Python 3.6, utilising Pipenv.
 The following libraries are used to both develop and test the application:
 
 
-- graphene #=> The actual library used to build GraphQL API's, there are others, but I like this one.
+- graphene # The actual library used to build GraphQL API's, there are others, but I like this one.
 
-- graphene-django #=> Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
+- graphene-django # Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
 
-- python-graphql-client #=> GraphQL client for programmatic requests.
+- python-graphql-client # GraphQL client for programmatic requests.
 
-- invoke #=> Task runner.
+- invoke # Task runner.
 
-- django #=> Web framework support.
+- django # Web framework support.
 
-- django-graphql-jwt #=> For JWT tokens.
+- django-graphql-jwt # For JWT tokens.
 
-- gql-query-builder #=> GraphQL query builder.
+- gql-query-builder # GraphQL query builder.
 
-- PyYAML #=> To parse yaml files.
+- PyYAML # To parse yaml files.
 
-- jsonpath-ng #=> To parse json strings.
+- jsonpath-ng # To parse json strings.
 
-- django-cors-headers #=> Allowing resources to be accessed on other domains.
+- django-cors-headers # Allowing resources to be accessed on other domains.
 
-- Faker #=> For generating random test data.
+- Faker # For generating random test data.
 
-- snapshottest #=> To run tests against the snapshot responses.
+- snapshottest # To run tests against the snapshot responses.
 
 # High level acceptance criteria
 
