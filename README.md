@@ -154,43 +154,55 @@ $ inv run-all-tests
 
 # Running the tests on the container
 
-You can run the tests on the container with the following command (**ensure that the container is already running**):
+If for whatever reason, be it you do not want to install Python locally, or do not want to install pipenv locally then you can also run the tests on the container directly.
+To do so ensure that you already have the container running (if you dont then type `docker-compose up` from the project root). In another terminal wiindow, again from the project root
+input the following:
 
 ```shell script
 $ docker ps -a # To get the list of running containers. Get the container name or id that is returned in the output from the command.
-
-# example output
-
-    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-**377e4cafe15c**        djangoapi_app       "sh -c 'pipenv run p…"   22 seconds ago      Up 22 seconds       0.0.0.0:8000->8000/tcp   **djangoapi_app_1**
-
-
-$ docker exec -it <CONTAINER_NAME_OR_ID> /bin/sh
-
 ```
 
-Once in the connected then change into the pipenv environment:
+You should see output similar to the following:
+
+```text
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+**377e4cafe15c**        djangoapi_app       "sh -c 'pipenv run p…"   22 seconds ago      Up 22 seconds       0.0.0.0:8000->8000/tcp   **djangoapi_app_1**
+```
+to connect to execute commands on the running container type in the terminal:
+
+```shell script
+$ docker exec -it <CONTAINER_NAME_OR_ID> /bin/sh
+```
+
+Which will place you in the containers shell. 
+Once connected you need to change into the pipenv virtual environment. You can do this by typing:
 
 ```shell script
 $ pipenv shell
+```
 
-# you should see output similar to the following:
+The output of which should be similar to the following:
 
+```text
 Launching subshell in virtual environment…
 /djangoapi #  . /root/.local/share/virtualenvs/djangoapi-RQslU66b/bin/activate
+```
 
-# Run all tests using unittest directly and **NOT** invoke tasks (bash is **NOT** installed on alpine).
+You are now at the point where you can run the tests. Unfortunetely, without additional apk packages you cannot run the invoke task (bash is **NOT** installed on alpine).
+So instead run the tests directly using unittest.
 
+```shell script
 $ python3 -m unittest tests/**/*.py
+```
 
-# if successful then the output should be similar to the following:
+Which will run all the tests. If the tests run successfully then you should see output similar to the following:
 
+```text
 ........
 ----------------------------------------------------------------------
 Ran 8 tests in 0.710s
 
 OK
-
 ```
 
 # Example of how to perform a query
