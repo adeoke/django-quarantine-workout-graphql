@@ -13,7 +13,7 @@ class APITestCase(TestCase):
             endpoint="{}{}".format(self.host, self.path))
 
     def test_levels_response_against_snapshot(self):
-        """Testing the API for /me"""
+        """Test levels query response data"""
 
         query = GqlQuery().fields(['difficulty']).query(
             'levels').operation().generate()
@@ -22,6 +22,7 @@ class APITestCase(TestCase):
         self.assertMatchSnapshot(levels_resp, 'levels_snapshot_resp')
 
     def test_equipment_against_snapshot(self):
+        """Testing equipment response data"""
         query = GqlQuery().fields(['difficulty']).query(
             'levels').operation().generate()
 
