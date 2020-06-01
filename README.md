@@ -108,7 +108,7 @@ run-all-tests                 Run all tests within the djangoapi/tests directory
 run-server                    Start the django server on default port 8000, unless another port specified.
 ```
 
-#Starting the server locally.
+# Starting the server locally.
 
 The application should now be all set up and ready to use. Finally, to test your configuration start the Django server
 (the default port is 8000), with by running:
@@ -128,7 +128,7 @@ In your browser you can now visit the url `http://localhost:8000/graphql/` to vi
 
 ![](/images/graphiql_localhost.png)
 
-#Running the tests
+# Running the tests
 
 A good place to start to make sure that the application is up and running is to run the end to end and snapshot tests.
 Again, go to the project root in the terminal change to the pipenv environment (`pipenv shell`) and input: 
@@ -217,9 +217,9 @@ All other reviews posted from other users should not include the username or ema
 7) Only a users username is returned when an authenticated user makes a request to query Users.
 
 
-#TODO provide tests against mocks.
+# TODO provide tests against mocks.
 
-#some points to consider:
+# some points to consider:
 ip whitelisting
 rate limiting
 access logs
