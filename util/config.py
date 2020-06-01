@@ -1,5 +1,6 @@
 import os
 import yaml
+from os import environ
 
 
 class Config:
@@ -7,7 +8,7 @@ class Config:
 
     @classmethod
     def current_config(cls):
-        return os.environ.get('environment', 'local')
+        return environ.get('environment', 'local')
 
     @classmethod
     def conf_for_current_env(cls):

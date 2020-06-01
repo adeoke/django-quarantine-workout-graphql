@@ -58,26 +58,26 @@ class TestAppQueries(unittest.TestCase):
         # assert list of dicts are equal ignoring order (python 3 only assert)
         self.assertCountEqual(actual_list_dict, expected_result)
 
-    def test_workout_with_variable_query_contains_result(self):
+    def test_workout_variable_query_for_expected_exercise_name(self):
         # set expected exercise name, as per the seeded data to db
         expected_exercise_name = 'straight bar military press'
 
         # create query that takes in a variable
         query = GqlQuery().fields(['name', 'description']).query(
-            'workout', input={"level": "$level"}).operation(name="query",
+            'workout', input={"level": "$level"}).operation("query",
+                                                            name='workout_query',
                                                             input={
                                                                 "$level": "String"}).generate()
+
         # Think of variables like arguments to method parameters.
-        variables = {"level": "intermediate"}
+        variables = {"level": "advanced"}
 
         # perform the request
         data = self.client.execute(query=query, variables=variables)
 
-        # parse the response data for all the names contained in the data
-        # NB: the response as always will match the shape of the request query.
-        # we have to use .value as the name itself is an object and value the property we are after
+        # search through the response data for expected description
         exercise_names = [name.value for name in
                           parse('data.workout[*].name').find(data)]
 
         self.assertTrue(expected_exercise_name in exercise_names,
-                        'Expected exercise was not found in list')
+                        'Expected exercise name was not found in the response data')

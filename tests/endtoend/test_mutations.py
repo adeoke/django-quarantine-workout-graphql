@@ -16,6 +16,36 @@ class TestAppMutations(unittest.TestCase):
         self.client = GraphqlClient(
             endpoint="{}{}".format(self.host, self.path))
 
+    def test_using_variables_for_existing_user_obtains_token_auth_in_response_data(
+            self):
+        username = Config.conf_for_current_env()['user']['username']
+        password = Config.conf_for_current_env()['user']['password']
+
+        query = GqlQuery().fields(
+            ['token', 'payload', 'refreshExpiresIn']).query("tokenAuth",
+                                                            input={
+                                                                "username": "\"{}\"".format(
+                                                                    username),
+                                                                "password": "\"{}\"".format(
+                                                                    password)}).operation(
+            "mutation", name="userAuth").generate()
+
+        data = self.client.execute(query=query)
+
+        token_expr = 'data.tokenAuth.token'
+        username_expr = 'data.tokenAuth.payload.username'
+        refresh_expires_in_expr = 'data.tokenAuth.refreshExpiresIn'
+
+        response_token = parse(token_expr).find(data)[0].value
+        response_username = parse(username_expr).find(data)[0].value
+        response_expiry = parse(refresh_expires_in_expr).find(data)[0].value
+
+        self.assertIsNotNone(response_token)
+        self.assertEqual(response_username, username,
+                         'Expected username {}, but got {}'.format(username,
+                                                                   response_username))
+        self.assertIsNotNone(response_expiry)
+
     def test_create_user_returns_token_in_data_response(self):
         username = self.fake.simple_profile()['username']
         email = self.fake.simple_profile()['mail']
@@ -29,17 +59,30 @@ class TestAppMutations(unittest.TestCase):
             "password": "\"password123\"",
             "username": "\"{}\"".format(username)}).operation("mutation"
                                                               ).generate()
-        data = self.client.execute(query=query)
+        create_user_data = self.client.execute(query=query)
+
+        # check user is created
+        username_expr = 'data.createUser.user.username'
+        email_expr = 'data.createUser.user.email'
+
+        username_resp = parse(username_expr).find(create_user_data)[0].value
+        email_resp = parse(email_expr).find(create_user_data)[0].value
+
+        self.assertEqual(username_resp, username,
+                         'Expected username {}, but got {}.'.format(username,
+                                                                    username_resp))
+        self.assertEqual(email_resp, email,
+                         'Expected email {}, but got {}.'.format(email,
+                                                                 email_resp))
 
         # step 2 use the user to authenticate
-
         query = GqlQuery().fields(['token']).query("tokenAuth", input={
             "password": "\"password123\"",
             "username": "\"{}\"".format(username)}).operation("mutation",
                                                               name="").generate()
 
         data = self.client.execute(query=query)
-        token = parse('data.tokenAuth.token').find(data)[0].value
+        token_expr = 'data.tokenAuth.token'
+
+        token = parse(token_expr).find(data)[0].value
         self.assertIsNotNone(token)
-
-
