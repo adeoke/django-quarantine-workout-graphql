@@ -6,29 +6,29 @@ An approach to testing GraphQL API's in Python 3.6, utilising Pipenv.
 The following libraries are used to both develop and test the application:
 
 ```text
-graphene #=> The actual library used to build GraphQL API's, there are others, but I like this one.
+- **graphene** #=> The actual library used to build GraphQL API's, there are others, but I like this one.
 
-graphene-django #=> Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
+- **graphene**-django #=> Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
 
-python-graphql-client #=> GraphQL client for programmatic requests.
+- **python-graphql-client** #=> GraphQL client for programmatic requests.
 
-invoke #=> Task runner.
+- **invoke** #=> Task runner.
 
-django #=> Not really required, butI may add functionality to make a full blown web app.
+- **django** #=> Not really required, butI may add functionality to make a full blown web app.
 
-django-graphql-jwt #=> For JWT tokens.
+- **django-graphql-jwt** #=> For JWT tokens.
 
-gql-query-builder #=> GraphQL query builder.
+- **gql-query-builder** #=> GraphQL query builder.
 
-PyYAML #=> To parse yaml files.
+- **PyYAML** #=> To parse yaml files.
 
-jsonpath-ng #=> To parse json strings.
+- **jsonpath-ng** #=> To parse json strings.
 
-django-cors-headers #=> allowing resources to be accessed on other domains.
+- **django-cors-headers** #=> allowing resources to be accessed on other domains.
 
-Fake #=> For generating random test data.
+- **faker** #=> For generating random test data.
 
-snapshottest #=> to run tests against the snapshot responses.
+- **snapshottest** #=> to run tests against the snapshot responses.
 ```
 
 # High level acceptance criteria
@@ -36,13 +36,14 @@ snapshottest #=> to run tests against the snapshot responses.
 In order to flesh out the functionality of the api I have followed these criteria (you can assume your 
 own implied criteria from the ones listed here).
 
-1) Any user is able to retrieve all workouts.
-2) A workout is a collection of exercises that match a given criteria (by filtering).
-3) If no filter is specified when making a request for a workout then all exercises are returned.
-4) Filtering on a workout should only return exercises that match the filter criteria.
-5) 
+1. Any user is able to retrieve all workouts.
+2. A workout is a collection of exercises that match a given criteria (by filtering).
+3. If no filter is specified when making a request for a workout then all exercises are returned.
+4. Filtering on a workout should only return exercises that match the filter criteria.
+5. TODO complete 
 
 
+**Remove/UPDATE**
 2) Only a logged in user can create an exercise.
 3) Only a logged in user can give a workout a review (where ONE is poor upto a review of FIVE, which represents a perfect exercise, only five choices,
 ONE to FIVE, inclusive are permitted).
