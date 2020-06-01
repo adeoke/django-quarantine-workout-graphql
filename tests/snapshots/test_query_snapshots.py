@@ -5,7 +5,7 @@ from snapshottest import TestCase
 from util.appconfig import AppConfig
 
 
-class APITestCase(TestCase):
+class TestAppQueriesSnapshot(TestCase):
     def setUp(self):
         self.host = AppConfig.conf_for_current_env()['host']
         self.path = AppConfig.conf_for_current_env()['api_path']
