@@ -281,4 +281,4 @@ Which will run the tests against the running service and not the tests against t
 
 ## License
 
-[MIT License](/LICENSE)
+[MIT License](https://github.com/adeoke/django-quarantine-workout-graphql/blob/master/LICENSE)
