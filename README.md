@@ -48,58 +48,66 @@ Allowing resources to be accessed on other domains.
 For generating random test data.
 
 * [snapshottest](https://pypi.org/project/snapshottest/)
-run tests against the snapshot (recorded) responses.
+Run tests against the snapshot (recorded) responses.
 
 # Setup Instructions:
 
 ## Setup with Docker
 
+**Note you will need to have both `docker` and `docker compose` installed.**
+
 You will need to have both docker and docker-compose installed.
 Provided you do, then navigate to the project root, launch the terminal and input:
+
+1. Launch terminal at project root
+2. Input the following to the terminal to start the container:
 
 ```text
 $ docker-compose up
 ```
 
-This will setup and install all the dependencies for the application and start the server on `localhost:8000`.
-You can view GraphiQL now in the browser by going to `http://localhost:8000/graphql/`
+- Once the installation process completes you will be able to navigate to `http://localhost:8000/graphql/`
+to see the GraphiQL web interface running.
 
 ## Setup locally
 
-You will need to create a virtual environment. In this project I have used `Pipenv`.
-To install Pipenv see the instructions here:
+**You will need to create a virtual environment.**
+- `Pipenv` is used in this project for virtual environments.
+    - See the following link on instructions:
+    
+    ```http request
+    https://pypi.org/project/pipenv/
+    ```
+After successfully installing Pipenv you are required to change into the pipenv virtual environment.
 
-```http request
-https://pypi.org/project/pipenv/
+- In the project root input:
+
+```shell script
+$ pipenv shell
 ```
 
-Once installed, launch the terminal (if its not already open), navigate to the project root 
-and input `pipenv shell` to change into the virtual environment.
+to change into the pipenv virtual environment.
 
-To verify that you are in the pipenv shell environment you should see something similar to the following:
+To visually verify that you are in the pipenv shell environment you should see something similar to the following:
 
 ```shell script
 $ (djangoapi) user-machine:djangoapi myuser$ 
 ``` 
 
-In the project root install the dependencies in your environment with the following pipenv command:
+You now need to install the dependencies within that virtual environment.
 
+- In the terminal on the project root input:
+ 
 ```shell script
 $ pipenv install -r requirements.txt
 ```
 
-The installation will install a couple of command line tools. 
-You can verify that they are installed by running the following commands on command line:
+To verify all tools are correctly installed you can type into the terminal:
 
 ```shell script
-$ django-admin --version
-> 3.0.6
-
-$ invoke --version
-> 1.4.1
+$ invoke --version 
+# output should be 1.4.1
 ```
-
-*NB: It is also possible to use `invoke` with the shortened word `inv`, so from here on I will refer to the short form name for the task manager.*
 
 # The invoke task manager
 
@@ -111,7 +119,7 @@ If you are unfamiliar with invoke then please see basic usage here:
 http://docs.pyinvoke.org/en/stable/getting-started.html
 ```
 
-You can get a list of all the tasks with the command:
+You can get a list of all the tasks from the project root by typing into the terminal:
 
 ```shell script
 $ inv -l
@@ -131,28 +139,33 @@ run-server                    Start the django server on default port 8000, unle
 
 # Starting the server locally
 
-The application should now be all set up and ready to use. 
-Finally, to test your configuration start the Django server (the default port is 8000), with by running:
+At this point you should be all set to start the application running on the Django server.
+To launch the Django server go to the project root on the termial and input:
 
 ```shell script
 $ inv run-server
 ```
 
 This will start the server on `localhost:8000` (if you wish to change the default port run the task instead with 
-command `inv run-server --port=MY_PORT_HERE`).
+command `inv run-server --port=MY_PORT_HERE`) replacing the port with the port of your choice. 
 
-Replacing the port with the port of your choice. Note that regardless of the port that you choose, the process will
-now run in the terminal window until you end the server by issuing a `control AND c` to cancel the process. So it is *advisable*
-to start a new terminal on the project root and ensure that you change into the same environment with the command `pipenv shell` again.
+**The server will continue to run until you input key combination `CONTROL AND c`. Also its good to note that the process will 
+run in the terminal until its stopped. For that reason I recommend opening another terminal window at the project root for further commands.**
 
-In your browser you can now visit the url `http://localhost:8000/graphql/` to view the GraphiQL editor:
+You can now view the GraphiQL web browser interface by going to url `http://localhost:8000/graphql/`.
+
+See screenshot below for an example output:
 
 ![](/images/graphiql_localhost.png)
 
 # Running the tests locally
 
-A good place to start to make sure that the application is up and running is to run the end to end and snapshot tests.
-Again, go to the project root in the terminal change to the pipenv environment (`pipenv shell`) and input: 
+With the appliaction running you can now run tests against it.
+
+Ensure that you are in the project root and wihin the virtual environment
+(open the terminal at the project root and input `pipenv shell`).
+
+Run all tests with command:
 
 ```shell script
 $ inv run-all-tests
@@ -162,9 +175,10 @@ $ inv run-all-tests
 
 # Running the tests on the container
 
-If for whatever reason, be it you do not want to install Python locally, or do not want to install pipenv locally then you can also run the tests on the container directly.
-To do so ensure that you already have the container running (if you dont then type `docker-compose up` from the project root). In another terminal window, again from the project root
-input the following:
+You can also run the tests directly on the container.
+Wou will need to ensure that you have the container already up and running.
+
+- On the terminal get a list of all the running containers:
 
 ```shell script
 $ docker ps -a # To get the list of running containers. Get the container name or id that is returned in the output from the command.
@@ -176,7 +190,8 @@ You should see output similar to the following:
     CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 **377e4cafe15c**        djangoapi_app       "sh -c 'pipenv run p…"   22 seconds ago      Up 22 seconds       0.0.0.0:8000->8000/tcp   **djangoapi_app_1**
 ```
-to connect to execute commands on the running container type in the terminal:
+
+- To connect to execute commands on the running container type in the terminal:
 
 ```shell script
 $ docker exec -it <CONTAINER_NAME_OR_ID> /bin/sh
@@ -196,12 +211,8 @@ Launching subshell in virtual environment…
 /djangoapi #  . /root/.local/share/virtualenvs/djangoapi-RQslU66b/bin/activate
 ```
 
-You are now at the point where you can run the tests. Unfortunately, without additional apk packages you cannot run the invoke task (bash is **NOT** installed on alpine).
+You are now at the point where you can run the tests. Unfortunately, without additional apk packages you cannot run invoke tasks (bash is **NOT** installed on alpine).
 So instead run the tests directly using unittest.
-
-
-To exit from the virtual environment type `exit`. Which takes you back to the terminal, still on the container. 
-Type `exit` to return to the terminal on your host machine. 
 
 ```shell script
 $ python3 -m unittest tests/**/*.py
@@ -216,6 +227,9 @@ Ran 8 tests in 0.710s
 
 OK
 ```
+
+To exit from the virtual environment type `exit`. Which takes you back to the terminal, still on the container. 
+Type `exit` to return to the terminal on your host machine. 
 
 # Example of how to perform a query
 
@@ -234,10 +248,9 @@ queries.
 It's also good to note that query requests are *idempotent*, in that performing the same request over and over will not 
 create a different side effect (you can also think of this is a request that will not change the state of a resource).
 
-There are a number of models that have direct access to them via resolvers in this API.
-This includes:
+Exposed graphene/graphql types include:
     
-```http request
+```text
 bodyparts
 equipment
 exercises
@@ -247,21 +260,22 @@ stars
 users
 ```
 
-Let us use `users` to perform queries against. Before we delve into performing the query it is a good point to note that the user
-model has a number of fields available to it. This includes, but is not limited to the following:
+Let us examine `users` to perform queries against, but before we do its a good point to note that the user
+model has a number of subfields available on it. This includes, but is not limited to the following:
 
 ```text
 email
 username
-password (this is a hashed value)
+password
 ...
 date_joined
 ```
 
-There's actually loads more, not all of which are actually required or return any meaningful information for the purposes of this application.
-However, I decided to keep them in to illustrate a point. A query is going to expose the data from the backend, unless there is some logic that says to either 
-only `include` the following fields, or to `exclude` the following fields (typically defined by a list of what to either include or exclude in the graphql output).
-With that being said I seeded the database with a few users. The users email address and username's were defined (representation of details follows):
+There is no filtering applied to what subfields are returned from the users query. As such many default subfields will be available,
+from the Django user model and those fields may return no data (filtering can be performed by applying `include` or `exclude` filters within the schema types).
+
+On initialisation of the project I seeded the database with 2 users, each with a username, password and email address.
+See an example representation below:
 
 ```text
 user_1:
@@ -272,23 +286,24 @@ user_2:
     email: testertesting2@example.com
 ```
 
-So with that being said if we now launch the GraphiQL web client and make a query to get all users, and return each users email address and username, then
-we should see at least the 2 users that we created returned in the response data. What follows is the request and response for that that request.
+If we perform a query now for `users` with subfields `email` and `username` we will see the details for the users returned
+in the response data set. See example following:
 
 ![](/images/users_query_response.png)
 
-We can see that the response data contains the exact fields that we requested as a json response in the shape of the request that we made.
+We can see that the JSON response data contains the exact fields that we requested, only this time with the values populated.
 
 # Example of how to perform a mutation
 
 Skip this section if you are familiar with GraphQL.
 
-Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API (non idempotent requests). The following example shows how to create a user and the
-response data returned shows the fields that we requested to be returned from the result of issuing that request.
+Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API (non idempotent requests).
+
+We will look at how to create a user. See screenshot for an example:
 
 ![](/images/create_mutation_response.png)
 
-So, to create the user we first provided the arguments for email, password and username:
+In this example we provided arguments for `email`, `password` and `username` to `createUser`:
 
 ```text
 createUser(email: "test@example.com",
@@ -296,7 +311,7 @@ createUser(email: "test@example.com",
   					username: "testuser")
 ```
 
-We also indicated that we want the response to contain the users username, email and dateJoined properties:
+We also requested that the subfields we want in the response should contain the users `username`, `email` and `dateJoined` properties:
 
 ```text
 user{
@@ -306,7 +321,7 @@ user{
     }
 ``` 
 
-This resulted in the response:
+Initiating this request we see the following response data:
 
 ```text
 {
