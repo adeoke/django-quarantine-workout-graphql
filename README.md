@@ -207,16 +207,108 @@ OK
 
 # Example of how to perform a query
 
-If you are familiar with graphql then you ignore this section.
-If you are new to graphql it is advisable to do some research into how to perform queries.
-Failing that for whatever reason I shall provide a couple of quick examples of how to interact with the API using graphql 
+If you are familiar with GraphQL then you ignore this section.
+
+For newcomers to GraphQL it is advisable to do some research into how to perform queries.
+See the following for a quick guide:
+
+```http request
+https://graphql.org/learn/queries/
+```
+
+Failing that for whatever reason I shall provide a couple of *quick* examples of how to interact with this API using GraphQL 
 queries.
 
-TODO
+It's also good to note that query requests are *idempotent*, in that performing the same request over and over will not 
+create a different side effect (you can also think of this is a request that will not change the state of a resource).
+
+There are a number of models that have direct access to them via resolvers in this API.
+This includes:
+    
+```http request
+bodyparts
+equipment
+exercises
+levels
+reviews
+stars
+users
+```
+
+Let us use `users` to perform queries against. Before we delve into performing the query it is a good point to note that the user
+model has a number of fields available to it. This includes, but is not limited to the following:
+
+```text
+email
+username
+password (this is a hashed value)
+...
+date_joined
+```
+
+There's actually loads more, not all of which are actually required or return any meaningful information for the purposes of this application.
+However, I decided to keep them in to illustrate a point. A query is going to expose the data from the backend, unless there is some logic that says to either 
+only `include` the following fields, or to `exclude` the following fields (typically defined by a list of what to either include or exclude in the graphql output).
+With that being said I seeded the database with a few users. The users email address and username's were defined (representation of details follows):
+
+```text
+user_1:
+    username: testertest90
+    email: testertesting1@example.com
+user_2:
+    username: newtestertest
+    email: testertesting2@example.com
+```
+
+So with that being said if we now launch the GraphiQL web client and make a query to get all users, and return each users email address and username, then
+we should see at least the 2 users that we created returned in the response data. What follows is the request and response for that that request.
+
+![](/images/users_query_response.png)
+
+We can see that the response data contains the exact fields that we requested as a json response in the shape of the request that we made.
 
 # Example of how to perform a mutation
 
-TODO
+Skip this section if you are familiar with GraphQL.
+
+Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API. The following example shows how to create a user and the
+response data returned shows the fields that we requested to be returned from the result of that request.
+
+![](/images/create_mutation_response.png)
+
+So, to create the user we first provided the arguments for email, password ana username:
+
+```text
+createUser(email: "test@example.com",
+  					password: "password1234",
+  					username: "testuser")
+```
+
+We also indicated that we want the response to contain the users username, email and date joined properties:
+
+```text
+user{
+      username
+      email
+      dateJoined
+    }
+``` 
+
+This resulted in the response:
+
+```text
+{
+  "data": {
+    "createUser": {
+      "user": {
+        "username": "testuser",
+        "email": "test@example.com",
+        "dateJoined": "2020-06-02T00:35:47.860278+00:00"
+      }
+    }
+  }
+}
+```
 
 # High level acceptance criteria
 
@@ -224,36 +316,86 @@ In order to flesh out the functionality of the api I have followed these criteri
 own implied criteria from the ones listed here).
 
 1. Any user is able to retrieve all workouts.
-2. A workout is a collection of exercises that match a given criteria (by filtering).
-3. If no filter is specified when making a request for a workout then all exercises are returned.
-4. Filtering on a workout should only return exercises that match the filter criteria.
-5. TODO complete 
-
-
+2. A workout is a collection of exercises that match the filtered criteria.
+3. Performing a workout query request, without any filtering returns all the exercises in the response data.
+5. Only an authenticated user can create an exercise.
+6. Only an authenticated user can create a review.
+7. Performing a query request to levels returns all levels (provided a sub field is specified).
+8. Performing a query request to bodyparts returns all the body parts.
+9. Performing a query request to equipment returns all the equipment types.
+9. Performing a query request to reviews returns all the reviews.
+10. Performing a query request to stars returns all the stars types.
+11. Performing a query request to users returns all the users.
+12. Any mutation that requires a field should not be persisted without that field being supplied.
 
 # Anatomy of an end to end test
 
-TODO
+A GraphQL test includes the following:
+
+```shell script
+A client # which makes the GraphQL request.
+A query # be it both mutation and query are queries. In essense what you send in the request is the query.
+A JSON response data object # which is parsed with jsonpath in the tests.
+```
+
+You have the option of supplying a raw string as the query in a test, however, all the tests used in this project use a query builder to
+generate the queries.
+
+A GraphQL client takes in a query and/or variables as arguments and returns the response data.
+JSONPath is then used to parse the response for specific data.
+
+Here is an example:
+
+```python
+    def test_should_get_body_parts(self):
+        expected_body_parts = ['upper body', 'lower body', 'cardio']
+
+        query = GqlQuery().fields(['name']).query(
+            'bodyParts').operation().generate()
+        data = self.client.execute(query=query)
+
+        jsonpath_expr = parse('data.bodyParts[*].name')
+        actual_body_parts = [match.value for match in jsonpath_expr.find(data)]
+
+        self.assertEqual(sorted(actual_body_parts),
+                         sorted(expected_body_parts),
+                         'expected body parts to be the same, but were not')
+```
+> GraphQL client guide:
+
+```http request
+https://github.com/prodigyeducation/python-graphql-client
+```
 
 > query building help:
 
-> client info
+```http request
+https://github.com/youyo/gql-query-builder
+```
+> JSONPath guide:
 
 ```http request
-https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
+https://restfulapi.net/json-jsonpath/
 ```
-
-> builder
-
-```http request
-https://gist.github.com/gbaman/b3137e18c739e0cf98539bf4ec4366ad
-```
-
 
 # Anatomy of a snapshot test
 
-TODO
+Snapshottest is useful for replaying tests that will yield the same result.
+Snapshot test records the response from a request and uses that response to compare all subsequent tests against.
 
+See an example from the tests within the project following:
+
+```python
+ def test_equipment_against_snapshot(self):
+        """Testing equipment response data"""
+        query = GqlQuery().fields(['difficulty']).query(
+            'levels').operation().generate()
+
+        equipment_resp = self.client.execute(query=query)
+        self.assertMatchSnapshot(equipment_resp, 'equipment_snapshot_resp')
+```
+
+A directory is created listing all the snapshots. On subsequent requests the resposes will be checked against these response.
 
 # Suggested Improvements
 
