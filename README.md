@@ -144,7 +144,7 @@ $ inv run-all-tests
 # Running the tests on the container
 
 If for whatever reason, be it you do not want to install Python locally, or do not want to install pipenv locally then you can also run the tests on the container directly.
-To do so ensure that you already have the container running (if you dont then type `docker-compose up` from the project root). In another terminal wiindow, again from the project root
+To do so ensure that you already have the container running (if you dont then type `docker-compose up` from the project root). In another terminal window, again from the project root
 input the following:
 
 ```shell script
@@ -177,8 +177,12 @@ Launching subshell in virtual environment…
 /djangoapi #  . /root/.local/share/virtualenvs/djangoapi-RQslU66b/bin/activate
 ```
 
-You are now at the point where you can run the tests. Unfortunetely, without additional apk packages you cannot run the invoke task (bash is **NOT** installed on alpine).
+You are now at the point where you can run the tests. Unfortunately, without additional apk packages you cannot run the invoke task (bash is **NOT** installed on alpine).
 So instead run the tests directly using unittest.
+
+
+To exit from the virtual environment type `exit`. Which takes you back to the terminal, still on the container. 
+Type `exit` to return to the terminal on your host machine. 
 
 ```shell script
 $ python3 -m unittest tests/**/*.py
@@ -405,9 +409,6 @@ See here for more on some of the suggested improvements:
 ```http request
 https://blog.papertrailapp.com/common-api-vulnerabilities-and-how-to-secure-them/
 ```
-
-To exit from the virtual environment type `exit`. Which takes you back to the terminal, still on the container. 
-Type `exit` to return to the terminal on your host machine. 
 
 ## License
 
