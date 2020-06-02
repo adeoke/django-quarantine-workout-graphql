@@ -82,16 +82,16 @@ $ invoke --version
 
 *NB: It is also possible to use `invoke` with the shortened word `inv`, so from here on I will refer to the short form name for the task manager.*
 
-# Task manager
-I have used `invoke` for tasks when running locally, but can also be used on a container itself.
+# The invoke task manager
 
-If you are unfamiliar with invoke see basic usage here:
+Invoke is used for simplifying repetitive tasks run locally on the host machine.
+
+If you are unfamiliar with invoke then please see basic usage here:
 
 ```http request
 http://docs.pyinvoke.org/en/stable/getting-started.html
 ```
 
-Purely for my convenience I have added a couple of tasks to speed up my development and testing.
 You can get a list of all the tasks with the command:
 
 ```shell script
@@ -112,8 +112,8 @@ run-server                    Start the django server on default port 8000, unle
 
 # Starting the server locally
 
-The application should now be all set up and ready to use. Finally, to test your configuration start the Django server
-(the default port is 8000), with by running:
+The application should now be all set up and ready to use. 
+Finally, to test your configuration start the Django server (the default port is 8000), with by running:
 
 ```shell script
 $ inv run-server
@@ -264,12 +264,12 @@ We can see that the response data contains the exact fields that we requested as
 
 Skip this section if you are familiar with GraphQL.
 
-Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API. The following example shows how to create a user and the
-response data returned shows the fields that we requested to be returned from the result of that request.
+Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API (non idempotent requests). The following example shows how to create a user and the
+response data returned shows the fields that we requested to be returned from the result of issuing that request.
 
 ![](/images/create_mutation_response.png)
 
-So, to create the user we first provided the arguments for email, password ana username:
+So, to create the user we first provided the arguments for email, password and username:
 
 ```text
 createUser(email: "test@example.com",
@@ -277,7 +277,7 @@ createUser(email: "test@example.com",
   					username: "testuser")
 ```
 
-We also indicated that we want the response to contain the users username, email and date joined properties:
+We also indicated that we want the response to contain the users username, email and dateJoined properties:
 
 ```text
 user{
@@ -305,7 +305,7 @@ This resulted in the response:
 
 # High level acceptance criteria
 
-In order to flesh out the functionality of the api I have followed these criteria (you can assume your 
+In order to flesh out the functionality of the API I used the following criteria (you can assume your 
 own implied criteria from the ones listed here).
 
 1. Any user is able to retrieve all workouts.
