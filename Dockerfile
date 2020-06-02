@@ -41,6 +41,3 @@ RUN pipenv run python3 $app_name/manage.py loaddata $PWD/$app_name/levels/fixtur
 RUN pipenv run python3 $app_name/manage.py loaddata $PWD/$app_name/equipment/fixtures/seed.yaml
 RUN pipenv run python3 $app_name/manage.py loaddata $PWD/$app_name/exercises/fixtures/seed.yaml
 RUN pipenv run python3 $app_name/manage.py loaddata $PWD/$app_name/reviews/fixtures/seed.yaml
-
-# when the container starts then this should also start. No loger required is using docker-compose
-#CMD pipenv run quarantineworkout/manage.py runserver 0.0.0.0:8000
