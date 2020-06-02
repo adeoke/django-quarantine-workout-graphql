@@ -1,14 +1,18 @@
+"""Mutations test module"""
 import unittest
-from util.appconfig import AppConfig
-from python_graphql_client import GraphqlClient
-from gql_query_builder import GqlQuery
 from faker import Faker
 from faker.providers import profile
+from gql_query_builder import GqlQuery
 from jsonpath_ng import parse
+from python_graphql_client import GraphqlClient
+from util.appconfig import AppConfig
 
 
 class TestAppMutations(unittest.TestCase):
+    """Mutations test class"""
+
     def setUp(self):
+        """Test setup method"""
         self.fake = Faker()
         self.fake.add_provider(profile)
         self.host = AppConfig.conf_for_current_env()['host']
@@ -18,16 +22,15 @@ class TestAppMutations(unittest.TestCase):
 
     def test_using_variables_for_existing_user_obtains_token_auth_in_response_data(
             self):
+        """User authentication test"""
         username = AppConfig.conf_for_current_env()['user']['username']
         password = AppConfig.conf_for_current_env()['user']['password']
 
         query = GqlQuery().fields(
-            ['token', 'payload', 'refreshExpiresIn']).query("tokenAuth",
-                                                            input={
-                                                                "username": "\"{}\"".format(
-                                                                    username),
-                                                                "password": "\"{}\"".format(
-                                                                    password)}).operation(
+            ['token', 'payload', 'refreshExpiresIn']) \
+            .query("tokenAuth", input={"username": "\"{}\"".format(username), \
+                                       "password": "\"{}\"".format( \
+                                           password)}).operation( \
             "mutation", name="userAuth").generate()
 
         data = self.client.execute(query=query)
@@ -47,6 +50,7 @@ class TestAppMutations(unittest.TestCase):
         self.assertIsNotNone(response_expiry)
 
     def test_create_user_returns_token_in_data_response(self):
+        """User mutation test"""
         username = self.fake.simple_profile()['username']
         email = self.fake.simple_profile()['mail']
 

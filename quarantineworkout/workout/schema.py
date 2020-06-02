@@ -1,9 +1,11 @@
+"""Workout schema module"""
 import graphene
 from exercises.schema import ExerciseType
 from exercises.models import Exercise
 
 
 class Query(graphene.ObjectType):
+    """Workout query class"""
     workout = graphene.List(ExerciseType,
                             body_part=graphene.String(),
                             exercise_name=graphene.String(),
@@ -11,6 +13,7 @@ class Query(graphene.ObjectType):
                             level=graphene.String())
 
     def resolve_workout(self, info, **kwargs):
+        """query resolver for workout property"""
         all_exercises = Exercise.objects.all()
 
         if kwargs.get('body_part'):

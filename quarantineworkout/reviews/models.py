@@ -1,9 +1,11 @@
+"""Reviews models module"""
 from django.db import models
 from django.conf import settings
 from stars.models import Star
 
 
 class Review(models.Model):
+    """Review table mapping class"""
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     exercise = models.ForeignKey('exercises.exercise',

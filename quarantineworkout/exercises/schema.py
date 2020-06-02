@@ -1,22 +1,28 @@
+"""Exercise schema module"""
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
-from .models import Exercise
 from bodyparts.models import BodyPart
 from equipment.models import Equipment
 from levels.models import Level
 from users.schema import UserType
+from .models import Exercise
 
 
 class ExerciseType(DjangoObjectType):
+    """Exercise type class"""
+
     class Meta:
+        """Exercise ORM model mapping"""
         model = Exercise
 
 
 class Query(graphene.ObjectType):
+    """Exercise query class"""
     exercises = graphene.List(ExerciseType, search_id=graphene.Int())
 
     def resolve_exercises(self, info, search_id=None):
+        """resolver function for exercises query"""
         all_exercises = Exercise.objects.all()
 
         if search_id:
@@ -26,6 +32,7 @@ class Query(graphene.ObjectType):
 
 
 class CreateExercise(graphene.Mutation):
+    """Create Exercise class"""
     id = graphene.Int()
     url = graphene.String()
     description = graphene.String()
@@ -37,6 +44,7 @@ class CreateExercise(graphene.Mutation):
     posted_by = graphene.Field(UserType)
 
     class Arguments:
+        """exercise creation arguments class"""
         url = graphene.String(required=True)
         description = graphene.String()
         name = graphene.String(required=True)
@@ -45,6 +53,7 @@ class CreateExercise(graphene.Mutation):
         level = graphene.String(required=True)
 
     def mutate(self, info, **kwargs):
+        """exercise object mutation/creation function"""
         level = kwargs.get('level').lower()
         body_part = kwargs.get('body_part').lower()
         equipment = kwargs.get('equipment').lower()
@@ -98,4 +107,5 @@ class CreateExercise(graphene.Mutation):
 
 
 class Mutation(graphene.ObjectType):
+    """Mutation class"""
     create_exercise = CreateExercise.Field()

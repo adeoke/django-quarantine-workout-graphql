@@ -1,3 +1,4 @@
+"""Exercise models module"""
 from django.db import models
 from django.conf import settings
 from equipment.models import Equipment
@@ -6,6 +7,7 @@ from bodyparts.models import BodyPart
 
 
 class Exercise(models.Model):
+    """Exercise table mapping class"""
     name = models.CharField(max_length=100)
     url = models.URLField()
     reps = models.IntegerField(default=10)

@@ -1,18 +1,24 @@
+"""Module to Test GraphQL API queries"""
+
 import unittest
-from util.appconfig import AppConfig
-from python_graphql_client import GraphqlClient
 from gql_query_builder import GqlQuery
 from jsonpath_ng import parse
+from python_graphql_client import GraphqlClient
+from util.appconfig import AppConfig
 
 
 class TestAppQueries(unittest.TestCase):
+    """Test class"""
+
     def setUp(self):
+        """Test setup"""
         self.host = AppConfig.conf_for_current_env()['host']
         self.path = AppConfig.conf_for_current_env()['api_path']
         self.client = GraphqlClient(
             endpoint="{}{}".format(self.host, self.path))
 
     def test_should_get_body_parts(self):
+        """bodypart query test"""
         expected_body_parts = ['upper body', 'lower body', 'cardio']
 
         query = GqlQuery().fields(['name']).query(
@@ -27,6 +33,7 @@ class TestAppQueries(unittest.TestCase):
                          'expected body parts to be the same, but were not')
 
     def test_should_get_all_equipment_types(self):
+        """equipment query test"""
         expected_equipment = ['dumbbells', 'resistance bands', 'barbell',
                               'none']
 
@@ -41,6 +48,7 @@ class TestAppQueries(unittest.TestCase):
                          'expected equipment to be the same, but were not')
 
     def test_should_verify_all_stars_details(self):
+        """stars query test"""
         expected_result = [{'number': 1, 'classification': 'poor'},
                            {'number': 2, 'classification': 'not good'},
                            {'number': 3, 'classification': 'good'},
@@ -52,13 +60,13 @@ class TestAppQueries(unittest.TestCase):
 
         data = self.client.execute(query=query)
         match = parse('data.stars[*]').find(data)
-        actual_list_dict = []
-        [actual_list_dict.append(result.value) for result in match]
+        actual_list_dict = [result.value for result in match]
 
         # assert list of dicts are equal ignoring order (python 3 only assert)
         self.assertCountEqual(actual_list_dict, expected_result)
 
     def test_workout_variable_query_for_expected_exercise_name(self):
+        """workout query using variables test"""
         # set expected exercise name, as per the seeded data to db
         expected_exercise_name = 'straight bar military press'
 
