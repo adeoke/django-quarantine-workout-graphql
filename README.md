@@ -8,39 +8,49 @@ This project was inspired by the need to keep fit during a quarantine. The inten
 is given a pool of exercises a user can provide their exercise requirements and obtain 
 a workout tailored to those requirements.
 
-# Screenshot
+# Demo
 
 ![workout query](/images/workout_query.gif)
 
-The following libraries are used to both develop and test the application:
+# Tech/Libraries Used
 
-```shell script
-graphene # The actual library used to build GraphQL API's, there are others, but I like this one.
+* [graphene](https://github.com/graphql-python/graphene)
+Used to build GraphQL API.
 
-graphene-django # Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
+* [graphene-django](https://graphene-python.org/)
+Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
 
-python-graphql-client # GraphQL client for programmatic requests.
+* [python-graphql-client](https://github.com/prodigyeducation/python-graphql-client)
+GraphQL client for programmatic requests.
 
-invoke # Task runner.
+* [invoke](http://www.pyinvoke.org/)
+Task runner.
 
-django # Web framework support.
+* [django](https://www.djangoproject.com/)
+Web framework support.
 
-django-graphql-jwt # For JWT tokens.
+* [django-graphql-jwt](https://django-graphql-jwt.domake.io/en/latest/)
+For JWT tokens.
 
-gql-query-builder # GraphQL query builder.
+* [gql-query-builder](https://github.com/youyo/gql-query-builder)
+GraphQL query builder.
 
-PyYAML # To parse yaml files.
+* [PyYAML](https://github.com/yaml/pyyaml)
+Yaml parser.
 
-jsonpath-ng # To parse json strings.
+* [jsonpath-ng](https://github.com/h2non/jsonpath-ng)
+JSON parser.
 
-django-cors-headers # Allowing resources to be accessed on other domains.
+* [django-cors-headers](https://github.com/adamchainz/django-cors-headers)
+Allowing resources to be accessed on other domains.
 
-Faker # For generating random test data.
+* [Faker](https://faker.readthedocs.io/en/master/)
+For generating random test data.
 
-snapshottest # To run tests against the snapshot (recorded) responses.
-```
+* [snapshottest](https://pypi.org/project/snapshottest/)
+run tests against the snapshot (recorded) responses.
 
-# Setup Instructions
+# Setup Instructions:
 
 ## Setup with Docker
 
