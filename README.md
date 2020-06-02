@@ -8,7 +8,9 @@ This project was inspired by the need to keep fit during a quarantine. The inten
 is given a pool of exercises a user can provide their exercise requirements and obtain 
 a workout tailored to those requirements.
 
+# Screenshot
 
+![workout query](/images/workout_query.gif)
 
 The following libraries are used to both develop and test the application:
 
