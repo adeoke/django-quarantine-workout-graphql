@@ -4,9 +4,9 @@ An approach to testing GraphQL API's in Python (version 3.6), utilising Pipenv.
 
 # Motivation
 
-This project was inspired by the need to keep fit during a quarantine. The intention
-is given a pool of exercises a user can provide their exercise requirements and obtain 
-a workout tailored to those requirements.
+This project was inspired by the need to keep fit during a quarantine. Given
+a pool of exercises a user can provide their workout criteria and obtain 
+a tailored set of exercises that matches those conditions.
 
 # Demo
 
@@ -56,9 +56,6 @@ Run tests against the snapshot (recorded) responses.
 
 **Note you will need to have both `docker` and `docker compose` installed.**
 
-You will need to have both docker and docker-compose installed.
-Provided you do, then navigate to the project root, launch the terminal and input:
-
 1. Launch terminal at project root
 2. Input the following to the terminal to start the container:
 
@@ -67,17 +64,19 @@ $ docker-compose up
 ```
 
 - Once the installation process completes you will be able to navigate to `http://localhost:8000/graphql/`
-to see the GraphiQL web interface running.
+to see the GraphiQL web browser interface.
 
 ## Setup locally
 
 **You will need to create a virtual environment.**
+
 - `Pipenv` is used in this project for virtual environments.
     - See the following link on instructions:
     
     ```http request
     https://pypi.org/project/pipenv/
     ```
+  
 After successfully installing Pipenv you are required to change into the pipenv virtual environment.
 
 - In the project root input:
@@ -86,9 +85,7 @@ After successfully installing Pipenv you are required to change into the pipenv 
 $ pipenv shell
 ```
 
-to change into the pipenv virtual environment.
-
-To visually verify that you are in the pipenv shell environment you should see something similar to the following:
+You should now be in the virtual environment. To visually verify you should see the terminal output similar to the following:
 
 ```shell script
 $ (djangoapi) user-machine:djangoapi myuser$ 
@@ -139,8 +136,10 @@ run-server                    Start the django server on default port 8000, unle
 
 # Starting the server locally
 
-At this point you should be all set to start the application running on the Django server.
-To launch the Django server go to the project root on the termial and input:
+It is assumed that you have all the dependencies installed locally at this point. If not then read
+[Setup Locally](#setup-locally) to do so.
+
+- On the terminal, from the project root start the server with command:
 
 ```shell script
 $ inv run-server
@@ -160,9 +159,9 @@ See screenshot below for an example output:
 
 # Running the tests locally
 
-With the appliaction running you can now run tests against it.
+Now  the application running you can now run tests against it.
 
-Ensure that you are in the project root and wihin the virtual environment
+Ensure that you are in the project root and within the virtual environment
 (open the terminal at the project root and input `pipenv shell`).
 
 Run all tests with command:
