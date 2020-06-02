@@ -285,8 +285,8 @@ password
 date_joined
 ```
 
-There is no filtering applied to what subfields are returned from the users query. As such many default subfields will be available,
-from the Django user model and those fields may return no data (filtering can be performed by applying `include` or `exclude` filters within the schema types).
+There is no filtering applied to what subfields are returned from the users query (all of the default
+user fields are available options to retrieve)  .
 
 On initialisation of the project I seeded the database with 2 users, each with a username, password and email address.
 See an example representation below:
@@ -300,8 +300,8 @@ user_2:
     email: testertesting2@example.com
 ```
 
-If we perform a query now for `users` with subfields `email` and `username` we will see the details for the users returned
-in the response data set. See example following:
+If we perform a query for `users` with subfields `email` and `username` we will see the details for the users returned
+in the response data set. See the example request and response following:
 
 ![](/images/users_query_response.png)
 
