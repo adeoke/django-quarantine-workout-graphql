@@ -31,17 +31,6 @@ Faker # For generating random test data.
 snapshottest # To run tests against the snapshot (recorded) responses.
 ```
 
-**Remove/UPDATE**
-2) Only a logged in user can create an exercise.
-3) Only a logged in user can give a workout a review (where ONE is poor upto a review of FIVE, which represents a perfect exercise, only five choices,
-ONE to FIVE, inclusive are permitted).
-4) Any user can obtain all the reviews for a workout.
-5) Only return the email address and username when querying all reviews, if you are the user who made that review.
-All other reviews posted from other users should not include the username or email address.
-6) Only a user with admin access can get all user details from a query to users.
-7) Only a users username is returned when an authenticated user makes a request to query Users.
-
-
 # Setup Instructions
 
 ## Setup with Docker
