@@ -57,7 +57,7 @@ Run tests against the snapshot (recorded) responses.
 **Note you will need to have both `docker` and `docker compose` installed.**
 
 1. Launch terminal at project root
-2. Input the following to the terminal to start the container:
+2. Input the following to start the container:
 
 ```text
 $ docker-compose up
@@ -67,6 +67,21 @@ $ docker-compose up
 to see the GraphiQL web browser interface.
 
 ## Setup locally
+
+If you do not have Python installed, check the installation instructions for your platform
+here:
+
+```http request
+https://www.python.org/downloads/`
+```
+
+**Note that this project was built with Python 3.6 in mind.**
+
+Once installed verify the installation on the terminal by typing:
+
+```shell script
+$ python --version # Python 3.6
+```
 
 **You will need to create a virtual environment.**
 
@@ -85,7 +100,7 @@ After successfully installing Pipenv you are required to change into the pipenv 
 $ pipenv shell
 ```
 
-You should now be in the virtual environment. To visually verify you should see the terminal output similar to the following:
+You should now be in the virtual environment. To visually verify checkthe terminal output is similar to the following:
 
 ```shell script
 $ (djangoapi) user-machine:djangoapi myuser$ 
@@ -139,7 +154,7 @@ run-server                    Start the django server on default port 8000, unle
 It is assumed that you have all the dependencies installed locally at this point. If not then read
 [Setup Locally](#setup-locally) to do so.
 
-- On the terminal, from the project root start the server with command:
+- In a terminal go to the project root start and the server with command:
 
 ```shell script
 $ inv run-server
