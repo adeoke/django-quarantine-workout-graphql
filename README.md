@@ -1,7 +1,14 @@
 # Quarantine Workout
 
+An approach to testing GraphQL API's in Python (version 3.6), utilising Pipenv.
 
-An approach to testing GraphQL API's in Python 3.6, utilising Pipenv.
+# Motivation
+
+This project was inspired by the need to keep fit during a quarantine. The intention
+is given a pool of exercises a user can provide their exercise requirements and obtain 
+a workout tailored to those requirements.
+
+
 
 The following libraries are used to both develop and test the application:
 
