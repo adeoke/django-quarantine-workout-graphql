@@ -361,13 +361,16 @@ Here is an example:
                          sorted(expected_body_parts),
                          'expected body parts to be the same, but were not')
 ```
+
+Use the following resources as guides if you need more information:
+
 > GraphQL client guide:
 
 ```http request
 https://github.com/prodigyeducation/python-graphql-client
 ```
 
-> query building help:
+> Query building guide:
 
 ```http request
 https://github.com/youyo/gql-query-builder
