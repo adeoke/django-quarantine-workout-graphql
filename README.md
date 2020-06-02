@@ -301,7 +301,7 @@ Mutations represent what would typically be performed by a POST/PUT/DELETE reque
 
 We will look at how to create a user. See screenshot for an example:
 
-![](/images/create_mutation_response.png)
+![](/images/create_user_mutation_response.png)
 
 In this example we provided arguments for `email`, `password` and `username` to `createUser`:
 
