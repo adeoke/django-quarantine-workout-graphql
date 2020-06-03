@@ -85,8 +85,8 @@ $ python --version # Python 3.6
 
 **You will need to create a virtual environment.**
 
-- `Pipenv` is used in this project for virtual environments.
-    - See the following link on instructions:
+- This project uses `Pipenv` for the virtual environment.
+    - If you do not already have Pipenv installed see the following link for a guide:
     
     ```http request
     https://pypi.org/project/pipenv/
@@ -100,15 +100,15 @@ After successfully installing Pipenv you are required to change into the pipenv 
 $ pipenv shell
 ```
 
-You should now be in the virtual environment. To visually verify checkthe terminal output is similar to the following:
+You should now be in the virtual environment and you will similar output to the following:
 
 ```shell script
 $ (djangoapi) user-machine:djangoapi myuser$ 
 ``` 
 
-You now need to install the dependencies within that virtual environment.
+Time to install the dependencies into the virtual environment.
 
-- In the terminal on the project root input:
+- In the project root on the terminal input:
  
 ```shell script
 $ pipenv install -r requirements.txt
