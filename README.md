@@ -242,7 +242,7 @@ Type `exit` to return to the terminal on your host machine.
 
 # Example of how to perform a query
 
-If you are familiar with GraphQL then you ignore this section.
+If you are already familiar with GraphQL then you can ignore this section.
 
 For newcomers to GraphQL, it is advisable to do some research into how to perform queries.
 See the following for a quick guide:
