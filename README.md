@@ -1,12 +1,10 @@
 # Quarantine Workout
 
-An approach to testing GraphQL API's in Python (version 3.6), utilising Pipenv.
+An approach to testing GraphQL APIs in Python (version 3.6), utilising Pipenv.
 
 # Motivation
 
-This project was inspired by the need to keep fit during a quarantine. Given
-a pool of exercises a user can provide their workout criteria and obtain 
-a tailored set of exercises that matches those conditions.
+This project was inspired by the need to keep fit during a quarantine. Given a pool of exercises a user can provide their workout criteria and obtain a tailored set of exercises that matches those conditions.
 
 # Demo
 
@@ -18,7 +16,7 @@ a tailored set of exercises that matches those conditions.
 Used to build GraphQL API.
 
 * [graphene-django](https://graphene-python.org/)
-Abstraction layer on top of Graphene, with the intention of simplyfying GraphQL functionality.
+Abstraction layer on top of Graphene, to simplify GraphQL functionality.
 
 * [python-graphql-client](https://github.com/prodigyeducation/python-graphql-client)
 GraphQL client for programmatic requests.
@@ -36,7 +34,7 @@ For JWT tokens.
 GraphQL query builder.
 
 * [PyYAML](https://github.com/yaml/pyyaml)
-Yaml parser.
+YAML parser.
 
 * [jsonpath-ng](https://github.com/h2non/jsonpath-ng)
 JSON parser.
@@ -54,7 +52,7 @@ Run tests against the snapshot (recorded) responses.
 
 ## Setup with Docker
 
-**Note you will need to have both `docker` and `docker compose` installed.**
+**Note you will need to have both `docker` and `docker-compose` installed.**
 
 1. Launch terminal at project root
 2. Input the following to start the container:
@@ -68,8 +66,7 @@ to see the GraphiQL web browser interface.
 
 ## Setup locally
 
-If you do not have Python installed, check the installation instructions for your platform
-here:
+If you do not have Python installed, check the installation instructions for your platform here:
 
 ```http request
 https://www.python.org/downloads/`
@@ -86,13 +83,13 @@ $ python --version # Python 3.6
 **You will need to create a virtual environment.**
 
 - This project uses `Pipenv` for the virtual environment.
-    - If you do not already have Pipenv installed see the following link for a guide:
+    - If you do not already have Pipenv installed follow this guide to set it up for your platform:
     
     ```http request
     https://pypi.org/project/pipenv/
     ```
   
-After successfully installing Pipenv you are required to change into the pipenv virtual environment.
+After successfully installing Pipenv you are required to change into the Pipenv virtual environment.
 
 - In the project root input:
 
@@ -100,7 +97,7 @@ After successfully installing Pipenv you are required to change into the pipenv 
 $ pipenv shell
 ```
 
-You should now be in the virtual environment and you will similar output to the following:
+You should now be in the virtual environment and see output similar to the following:
 
 ```shell script
 $ (djangoapi) user-machine:djangoapi myuser$ 
@@ -161,12 +158,11 @@ $ inv run-server
 ```
 
 This will start the server on `localhost:8000` (if you wish to change the default port run the task instead with 
-command `inv run-server --port=MY_PORT_HERE`) replacing the port with the port of your choice. 
+command `inv run-server --port=MY_PORT_HERE`) replacing the port with the port of your choice.
 
-**The server will continue to run until you input key combination `CONTROL AND c`. Also its good to note that the process will 
-run in the terminal until its stopped. For that reason I recommend opening another terminal window at the project root for further commands.**
+**The server will continue to run until you input the key combination `CONTROL + c`. Also, its good to note that the process will run in the terminal until it is ended. For that reason I recommend opening another terminal window at the project root for further commands.**
 
-You can now view the GraphiQL web browser interface by going to url `http://localhost:8000/graphql/`.
+You can now view the GraphiQL web browser interface by going to URL `http://localhost:8000/graphql/`.
 
 See screenshot below for an example output:
 
@@ -174,12 +170,11 @@ See screenshot below for an example output:
 
 # Running the tests locally
 
-Now  the application running you can now run tests against it.
+Now the application running you can now run tests against it.
 
-Ensure that you are in the project root and within the virtual environment
-(open the terminal at the project root and input `pipenv shell`).
+Ensure that you are in the project root and within the virtual environment (open the terminal at the project root and input `pipenv shell`).
 
-Run all tests with command:
+Run all tests with the command:
 
 ```shell script
 $ inv run-all-tests
@@ -211,7 +206,7 @@ You should see output similar to the following:
 $ docker exec -it <CONTAINER_NAME_OR_ID> /bin/sh
 ```
 
-Which will place you in the containers shell. 
+You will now be within the shell of the container. 
 Once connected you need to change into the pipenv virtual environment. You can do this by typing:
 
 ```shell script
@@ -225,14 +220,14 @@ Launching subshell in virtual environment…
 /djangoapi #  . /root/.local/share/virtualenvs/djangoapi-RQslU66b/bin/activate
 ```
 
-You are now at the point where you can run the tests. Unfortunately, without additional apk packages you cannot run invoke tasks (bash is **NOT** installed on alpine).
+You are now at the point where you can run the tests. Unfortunately, without additional apk packages, you cannot run invoke tasks (bash is **NOT** installed on alpine).
 So instead run the tests directly using unittest.
 
 ```shell script
 $ python3 -m unittest tests/**/*.py
 ```
 
-Which will run all the tests. If the tests run successfully then you should see output similar to the following:
+Which runs all the tests. If the tests run successfully then you should see output similar to the following:
 
 ```text
 ........
@@ -249,7 +244,7 @@ Type `exit` to return to the terminal on your host machine.
 
 If you are familiar with GraphQL then you ignore this section.
 
-For newcomers to GraphQL it is advisable to do some research into how to perform queries.
+For newcomers to GraphQL, it is advisable to do some research into how to perform queries.
 See the following for a quick guide:
 
 ```http request
@@ -275,7 +270,7 @@ users
 ```
 
 Let us examine `users` to perform queries against, but before we do its a good point to note that the user
-model has a number of subfields available on it. This includes, but is not limited to the following:
+the model has several subfields available on it. This includes, but is not limited to the following:
 
 ```text
 email
@@ -285,10 +280,10 @@ password
 date_joined
 ```
 
-There is no filtering applied to what subfields are returned from the users query (all of the default
-user fields are available options to retrieve)  .
+There is no filtering applied to what subfields are returned from the users' query (all of the default
+user fields are available options to retrieve).
 
-On initialisation of the project I seeded the database with 2 users, each with a username, password and email address.
+On initialisation of the project, I seeded the database with 2 users, each user has a username, password, and email.
 See an example representation below:
 
 ```text
@@ -301,7 +296,7 @@ user_2:
 ```
 
 If we perform a query for `users` with subfields `email` and `username` we will see the details for the users returned
-in the response data set. See the example request and response following:
+in the response data set. See the example request and response:
 
 ![](/images/users_query_response.png)
 
@@ -311,7 +306,7 @@ We can see that the JSON response data contains the exact fields that we request
 
 Skip this section if you are familiar with GraphQL.
 
-Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API (non idempotent requests).
+Mutations represent what would typically be performed by a POST/PUT/DELETE request in a Rest API (non-idempotent requests).
 
 We will look at how to create a user. See screenshot for an example:
 
@@ -351,17 +346,17 @@ Initiating this request we see the following response data:
 }
 ```
 
-# High level acceptance criteria
+# High-level acceptance criteria
 
-In order to flesh out the functionality of the API I used the following criteria (you can assume your 
+To flesh out the functionality of the API I used the following criteria (you can assume your 
 own implied criteria from the ones listed here).
 
-1. Any user is able to retrieve all workouts.
+1. Any user can retrieve all workouts.
 2. A workout is a collection of exercises that match the filtered criteria.
 3. Performing a workout query request, without any filtering returns all the exercises in the response data.
 5. Only an authenticated user can create an exercise.
 6. Only an authenticated user can create a review.
-7. Performing a query request to levels returns all levels (provided a sub field is specified).
+7. Performing a query request to levels returns at all levels (provided a subfield is specified).
 8. Performing a query request to bodyparts returns all the body parts.
 9. Performing a query request to equipment returns all the equipment types.
 9. Performing a query request to reviews returns all the reviews.
@@ -375,8 +370,8 @@ A GraphQL test includes the following:
 
 ```shell script
 A client # which makes the GraphQL request.
-A query # be it both mutation and query are queries. In essense what you send in the request is the query.
-A JSON response data object # which is parsed with jsonpath in the tests.
+A query # be it both mutation and query. In essence, what you send in the request is the query.
+A JSON response data object # which is parsed with JSONPath in the tests.
 ```
 
 You have the option of supplying a raw string as the query in a test, however, all the tests used in this project use a query builder to
@@ -439,14 +434,12 @@ See an example from the tests within the project following:
         self.assertMatchSnapshot(equipment_resp, 'equipment_snapshot_resp')
 ```
 
-A directory is created listing all the snapshots. On subsequent requests the resposes will be checked against these response.
+A directory is created listing all the snapshots. On subsequent requests, the responses will be checked against those responses.
 
 # Suggested Improvements
 
 1) Only return all user information for the currently authenticated user.
-At present the currently logged in user, or unauthenticated user will retrieve all 
-user data in the response data. An improvement would be hide the sensitive data for all users other than the 
-currently authenticated user.
+At present, the currently logged in user, or unauthenticated user will retrieve all user data in the response data. An improvement would be to hide the sensitive data for all users other than the currently authenticated user.
 2) Add rate limiting.
 3) Use relay for pagination.
 4) Use logging.
